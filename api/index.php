@@ -12,7 +12,22 @@ if (str_starts_with($uri, '/public/')) {
     $normalizedUri = substr($uri, 7);
 }
 
-// Check if static asset or public file exists directly
+// 1. If admin route requested: admin files are located in root admin/ directory
+if (str_starts_with($normalizedUri, '/admin')) {
+    $adminFile = __DIR__ . '/..' . $normalizedUri;
+    if (is_dir($adminFile)) {
+        $adminFile = rtrim($adminFile, '/') . '/index.php';
+    } elseif (!file_exists($adminFile) && file_exists($adminFile . '.php')) {
+        $adminFile = $adminFile . '.php';
+    }
+    if (file_exists($adminFile)) {
+        chdir(dirname($adminFile));
+        require $adminFile;
+        exit;
+    }
+}
+
+// 2. Check if static asset or public file exists directly in public/
 $publicFile = __DIR__ . '/../public' . $normalizedUri;
 
 if ($normalizedUri !== '/' && $normalizedUri !== '' && file_exists($publicFile) && !is_dir($publicFile)) {
@@ -20,6 +35,7 @@ if ($normalizedUri !== '/' && $normalizedUri !== '' && file_exists($publicFile) 
     
     // If it's a PHP file, execute it
     if ($ext === 'php') {
+        chdir(dirname($publicFile));
         require $publicFile;
         exit;
     }
@@ -46,25 +62,15 @@ if ($normalizedUri !== '/' && $normalizedUri !== '' && file_exists($publicFile) 
     exit;
 }
 
-// If admin directory requested
-if (str_starts_with($normalizedUri, '/admin')) {
-    $adminFile = __DIR__ . '/../public' . $normalizedUri;
-    if (is_dir($adminFile)) {
-        $adminFile = rtrim($adminFile, '/') . '/index.php';
-    }
-    if (file_exists($adminFile)) {
-        require $adminFile;
-        exit;
-    }
-}
-
-// Route extensionless URLs (e.g. /services -> /public/services.php)
+// 3. Route extensionless URLs in public/ (e.g. /services -> /public/services.php)
 $cleanPath = trim($normalizedUri, '/');
 if (!empty($cleanPath) && file_exists(__DIR__ . '/../public/' . $cleanPath . '.php')) {
+    chdir(__DIR__ . '/../public');
     require __DIR__ . '/../public/' . $cleanPath . '.php';
     exit;
 }
 
-// Default fallback to public homepage
+// 4. Default fallback to public homepage
 $_SERVER['SCRIPT_NAME'] = '/index.php';
+chdir(__DIR__ . '/../public');
 require __DIR__ . '/../public/index.php';
