@@ -1,0 +1,400 @@
+/**
+ * Akash Event Management - Administrative Dashboard Styles
+ * Modern, clean, practical executive interface
+ */
+
+:root {
+  --admin-sidebar-width: 260px;
+  --admin-header-height: 68px;
+  --admin-bg: #F4F6F8;
+  --admin-card-bg: #FFFFFF;
+  --admin-border: #E2E8F0;
+  --admin-primary: #1D1D1F;
+  --admin-accent: #C5A059;
+}
+
+body.admin-body {
+  background-color: var(--admin-bg);
+  color: #1A202C;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* -------------------------------------------------------------
+ * 1. Admin Layout: Sidebar & Main Content
+ * ------------------------------------------------------------- */
+.admin-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: var(--admin-sidebar-width);
+  background-color: #121214;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--z-sticky);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar-brand {
+  padding: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-brand-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.admin-brand-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-sidebar-nav {
+  padding: var(--space-md) var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.75rem 1rem;
+  color: #A0AEC0;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.admin-nav-item:hover {
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.admin-nav-item.active {
+  color: #FFFFFF;
+  background-color: rgba(197, 160, 89, 0.2);
+  border-left: 3px solid var(--color-gold);
+  font-weight: 600;
+}
+
+.admin-nav-badge {
+  margin-left: auto;
+  background-color: var(--color-gold);
+  color: #121214;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.admin-sidebar-footer {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-main {
+  flex-grow: 1;
+  margin-left: var(--admin-sidebar-width);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.admin-header {
+  height: var(--admin-header-height);
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.admin-header-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1A202C;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.admin-content {
+  padding: var(--space-xl);
+  flex-grow: 1;
+}
+
+/* -------------------------------------------------------------
+ * 2. Metric Stat Cards
+ * ------------------------------------------------------------- */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.metric-card {
+  background-color: var(--admin-card-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #718096;
+  margin-bottom: var(--space-2xs);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1A202C;
+  line-height: 1.1;
+}
+
+.metric-sub {
+  font-size: 0.75rem;
+  color: #A0AEC0;
+  margin-top: var(--space-xs);
+}
+
+/* -------------------------------------------------------------
+ * 3. Tables & Action Lists
+ * ------------------------------------------------------------- */
+.admin-card {
+  background-color: var(--admin-card-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: var(--space-xl);
+}
+
+.admin-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.admin-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1A202C;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th {
+  background-color: #F8FAFC;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4A5568;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-table td {
+  padding: 1rem;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--admin-border);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background-color: #F8FAFC;
+}
+
+/* Status Badges */
+.status-pill {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-new {
+  background-color: #EBF8FF;
+  color: #2B6CB0;
+}
+
+.status-read {
+  background-color: #EDF2F7;
+  color: #4A5568;
+}
+
+.status-contacted {
+  background-color: #FEFCBF;
+  color: #744210;
+}
+
+.status-completed {
+  background-color: #C6F6D5;
+  color: #22543D;
+}
+
+.status-published {
+  background-color: #C6F6D5;
+  color: #22543D;
+}
+
+.status-draft {
+  background-color: #EDF2F7;
+  color: #718096;
+}
+
+/* -------------------------------------------------------------
+ * 4. Admin Forms & Buttons
+ * ------------------------------------------------------------- */
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 0.55rem 1.15rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.admin-btn-primary {
+  background-color: #1D1D1F;
+  color: #FFFFFF;
+}
+
+.admin-btn-primary:hover {
+  background-color: #000000;
+}
+
+.admin-btn-gold {
+  background-color: var(--color-gold);
+  color: #FFFFFF;
+}
+
+.admin-btn-gold:hover {
+  background-color: var(--color-gold-deep);
+}
+
+.admin-btn-secondary {
+  background-color: #FFFFFF;
+  border-color: var(--admin-border);
+  color: #4A5568;
+}
+
+.admin-btn-secondary:hover {
+  background-color: #F7FAFC;
+}
+
+.admin-btn-danger {
+  background-color: #FFF5F5;
+  color: #E53E3E;
+  border-color: #FED7D7;
+}
+
+.admin-btn-danger:hover {
+  background-color: #E53E3E;
+  color: #FFFFFF;
+}
+
+.admin-btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+/* Login Page Specific */
+.admin-login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #121214 0%, #1D1D1F 100%);
+  padding: var(--space-xl);
+}
+
+.admin-login-box {
+  width: 100%;
+  max-width: 420px;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+  }
+
+  .admin-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    margin-left: 0;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}

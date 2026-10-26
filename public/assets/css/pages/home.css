@@ -1,0 +1,267 @@
+/**
+ * Akash Event Management - Home Page Styles
+ * Cinematic Apple-Inspired Hero & Visual Storytelling
+ */
+
+/* -------------------------------------------------------------
+ * 1. Hero Section
+ * ------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-inverse);
+  padding: var(--space-4xl) 0;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-background-picture {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-background-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.62;
+  transform: scale(1.02);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(18, 18, 20, 0.4) 0%, 
+    rgba(18, 18, 20, 0.65) 50%, 
+    rgba(18, 18, 20, 0.95) 100%
+  );
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.4rem 1.1rem;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+  margin-bottom: var(--space-lg);
+  animation: heroFadeUp 0.8s var(--transition-normal) forwards;
+}
+
+.hero-headline {
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: var(--space-md);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  animation: heroFadeUp 1s var(--transition-normal) 0.15s both;
+}
+
+.hero-subheadline {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-inverse-muted);
+  max-width: 680px;
+  margin: 0 auto var(--space-2xl) auto;
+  line-height: var(--line-height-relaxed);
+  animation: heroFadeUp 1s var(--transition-normal) 0.3s both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  animation: heroFadeUp 1s var(--transition-normal) 0.45s both;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -------------------------------------------------------------
+ * 2. Experience Highlight & Stats Bar
+ * ------------------------------------------------------------- */
+.stats-section {
+  padding: var(--space-4xl) 0;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+  text-align: center;
+}
+
+.stat-item {
+  padding: var(--space-lg);
+}
+
+.stat-number {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-2xs);
+  letter-spacing: -0.02em;
+}
+
+.stat-number span {
+  color: var(--color-gold);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* -------------------------------------------------------------
+ * 3. Featured Services Section
+ * ------------------------------------------------------------- */
+.services-section {
+  padding: var(--space-5xl) 0;
+  background-color: var(--color-canvas);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+/* -------------------------------------------------------------
+ * 4. Story & Craftsmanship Feature
+ * ------------------------------------------------------------- */
+.story-section {
+  padding: var(--space-5xl) 0;
+  background-color: var(--color-surface);
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.story-visual {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.story-visual img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.story-content h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-md);
+}
+
+.story-content p {
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-base);
+}
+
+/* -------------------------------------------------------------
+ * 5. CTA Section
+ * ------------------------------------------------------------- */
+.cta-banner {
+  background: linear-gradient(135deg, #1D1D1F 0%, #121214 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: clamp(2.5rem, 2rem + 3vw, 5rem);
+  text-align: center;
+  margin-top: var(--space-4xl);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--color-gold-glow) 0%, transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.cta-headline {
+  font-size: var(--font-size-3xl);
+  color: #FFFFFF;
+  margin-bottom: var(--space-sm);
+  position: relative;
+  z-index: 2;
+}
+
+.cta-subtext {
+  font-size: var(--font-size-base);
+  color: var(--color-text-inverse-muted);
+  max-width: 580px;
+  margin: 0 auto var(--space-xl) auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  position: relative;
+  z-index: 2;
+}

@@ -1,0 +1,22 @@
+# Akash Event Management - Apache / XAMPP Configuration
+# Protect sensitive application folders and configuration files
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct web access to sensitive directories and configuration files
+    RewriteRule ^(app|storage|database|scripts|tests)/ - [F,L,NC]
+    RewriteRule ^(\.env|\.git|composer\.) - [F,L,NC]
+
+    # If requested resource exists in public/ directory (e.g., assets, images, CSS, JS)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{DOCUMENT_ROOT}/public/%{REQUEST_URI} -f
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Prevent directory browsing
+Options -Indexes
+
+# Set UTF-8 encoding
+AddDefaultCharset UTF-8

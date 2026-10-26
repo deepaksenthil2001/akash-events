@@ -1,0 +1,107 @@
+/**
+ * Akash Event Management - About Page Styles
+ */
+
+.about-hero {
+  padding: var(--space-4xl) 0 var(--space-2xl) 0;
+  text-align: center;
+}
+
+.about-story-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--space-4xl);
+  align-items: center;
+  margin: var(--space-4xl) 0;
+}
+
+.about-image-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.about-image-collage img {
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+}
+
+.about-image-tall {
+  grid-row: span 2;
+  height: 100%;
+}
+
+.about-philosophy-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  margin: var(--space-4xl) 0;
+}
+
+.philosophy-quote {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-2xl);
+  font-style: italic;
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+  margin-bottom: var(--space-lg);
+}
+
+.founder-highlight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.founder-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-gold);
+}
+
+.founder-info h4 {
+  font-size: var(--font-size-base);
+  margin-bottom: 2px;
+}
+
+.founder-info p {
+  font-size: var(--font-size-xs);
+  color: var(--color-gold-deep);
+  font-weight: 500;
+}
+
+/* Visiting Card & Credentials Showcase */
+.about-card-showcase {
+  margin: var(--space-4xl) 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .about-card-showcase {
+    padding: var(--space-xl);
+    margin: var(--space-2xl) 0;
+  }
+  .about-card-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+}

@@ -1,0 +1,113 @@
+/**
+ * Akash Event Management - Design Tokens
+ * Apple-Inspired Refined Event Aesthetics
+ */
+
+:root {
+  /* Color Palette - Neutrals & Foundation */
+  --color-canvas: #FBF9F5;
+  --color-canvas-subtle: #F4EFEB;
+  --color-surface: #FFFFFF;
+  --color-surface-translucent: rgba(255, 255, 255, 0.82);
+  --color-surface-glass: rgba(251, 249, 245, 0.88);
+  --color-surface-dark: #121214;
+  --color-surface-dark-translucent: rgba(18, 18, 20, 0.85);
+
+  /* Typography Colors */
+  --color-text-primary: #1D1D1F;
+  --color-text-secondary: #515154;
+  --color-text-tertiary: #86868B;
+  --color-text-inverse: #FFFFFF;
+  --color-text-inverse-muted: #A1A1A6;
+
+  /* Accent Colors - Champagne Gold & Botanical Green */
+  --color-gold: #C5A059;
+  --color-gold-light: #E6D5B8;
+  --color-gold-deep: #9A7736;
+  --color-gold-glow: rgba(197, 160, 89, 0.18);
+  
+  --color-botanical: #243E36;
+  --color-botanical-light: #3D6155;
+  --color-botanical-soft: #EAEFEA;
+
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-subtle: rgba(0, 0, 0, 0.04);
+  --color-border-dark: rgba(255, 255, 255, 0.12);
+
+  /* Status Colors */
+  --color-success: #2E7D32;
+  --color-success-bg: #E8F5E9;
+  --color-warning: #ED6C02;
+  --color-warning-bg: #FFF4E5;
+  --color-error: #D32F2F;
+  --color-error-bg: #FFEBEE;
+  --color-info: #0288D1;
+  --color-info-bg: #E1F5FE;
+
+  /* Typography Hierarchy */
+  --font-family-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-display: 'Cinzel', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", Georgia, serif;
+  --font-family-serif: "New York", "Didot", "Bodoni MT", "Cinzel", "Playfair Display", Georgia, serif;
+  
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
+  --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 0.9375rem);
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+  --font-size-3xl: clamp(1.875rem, 1.6rem + 1.25vw, 2.5rem);
+  --font-size-4xl: clamp(2.25rem, 1.85rem + 2vw, 3.5rem);
+  --font-size-5xl: clamp(2.75rem, 2.1rem + 3vw, 4.75rem);
+
+  /* Line Heights */
+  --line-height-tight: 1.12;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+
+  /* Spacing Scale */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+  --space-4xl: 6.5rem;
+  --space-5xl: 9rem;
+
+  /* Containers */
+  --container-max-width: 1240px;
+  --container-narrow-width: 860px;
+  --container-wide-width: 1400px;
+  --container-padding: clamp(1.25rem, 1rem + 2vw, 3rem);
+
+  /* Border Radii (Apple-standard smooth squircle feeling) */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Shadows (Subtle, diffused, elegant) */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 30px var(--color-gold-glow);
+
+  /* Apple-inspired Motion & Transitions */
+  --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 540ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Z-Index Hierarchy */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-header: 1000;
+  --z-drawer: 1100;
+  --z-modal: 1200;
+  --z-toast: 1300;
+}
