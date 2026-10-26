@@ -6,11 +6,17 @@
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH));
 
-// Check if static asset or public file exists directly
-$publicFile = __DIR__ . '/../public' . $uri;
+// Normalize path if browser requested with /public/ prefix
+$normalizedUri = $uri;
+if (str_starts_with($uri, '/public/')) {
+    $normalizedUri = substr($uri, 7);
+}
 
-if ($uri !== '/' && file_exists($publicFile) && !is_dir($publicFile)) {
-    $ext = pathinfo($publicFile, PATHINFO_EXTENSION);
+// Check if static asset or public file exists directly
+$publicFile = __DIR__ . '/../public' . $normalizedUri;
+
+if ($normalizedUri !== '/' && $normalizedUri !== '' && file_exists($publicFile) && !is_dir($publicFile)) {
+    $ext = strtolower(pathinfo($publicFile, PATHINFO_EXTENSION));
     
     // If it's a PHP file, execute it
     if ($ext === 'php') {
@@ -41,8 +47,8 @@ if ($uri !== '/' && file_exists($publicFile) && !is_dir($publicFile)) {
 }
 
 // If admin directory requested
-if (str_starts_with($uri, '/admin')) {
-    $adminFile = __DIR__ . '/../public' . $uri;
+if (str_starts_with($normalizedUri, '/admin')) {
+    $adminFile = __DIR__ . '/../public' . $normalizedUri;
     if (is_dir($adminFile)) {
         $adminFile = rtrim($adminFile, '/') . '/index.php';
     }
@@ -53,7 +59,7 @@ if (str_starts_with($uri, '/admin')) {
 }
 
 // Route extensionless URLs (e.g. /services -> /public/services.php)
-$cleanPath = trim($uri, '/');
+$cleanPath = trim($normalizedUri, '/');
 if (!empty($cleanPath) && file_exists(__DIR__ . '/../public/' . $cleanPath . '.php')) {
     require __DIR__ . '/../public/' . $cleanPath . '.php';
     exit;

@@ -35,6 +35,11 @@ class View
         // Clean path to always use forward slashes
         $cleanPath = '/' . ltrim(str_replace('\\', '/', $path), '/');
         
+        // On Vercel, contents of public/ are automatically served directly at root /
+        if (getenv('VERCEL')) {
+            return $cleanPath;
+        }
+        
         // If file exists under public directory
         $publicDir = str_replace('\\', '/', dirname(__DIR__, 2)) . '/public';
         if (file_exists($publicDir . $cleanPath)) {
