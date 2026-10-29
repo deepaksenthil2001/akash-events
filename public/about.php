@@ -6,6 +6,7 @@
 require_once __DIR__ . '/../app/bootstrap.php';
 
 use App\Helpers\View;
+use App\Models\Service;
 
 $pageTitle = 'About Us | Akash Event Management - 10+ Years of Craftsmanship';
 $pageDescription = 'Learn about Akash Event Management, founded by P. Manobalan in Hosur. Over a decade of floral artistry, wedding stages, and sacred Indian celebrations.';
@@ -17,9 +18,11 @@ $aboutPhilosophy = View::setting('about_philosophy', 'Founded by P. Manobalan, A
 $experienceYears = View::setting('experience_statement', '10+ Years of Craftsmanship & Service');
 $founderName = View::setting('founder_name', 'P. Manobalan');
 $founderTitle = View::setting('founder_title', 'Master Floral Decorator & Event Architect');
+$founderQuote = View::setting('founder_quote', 'When a family entrusts us with their daughter\'s wedding or their grandchild\'s naming ceremony, they are entrusting us with one of the most sacred days of their lives. That trust demands nothing less than perfection in every flower, every light, and every detail.');
 $phonePrimary = View::setting('phone_primary', '+91 93442 73433');
-$address = View::setting('address_line', 'Bhavani Palace, Back side, Gokul Nagar, Hosur, Tamil Nadu 635109');
+$address = View::setting('address_line', '12, Gokul Nagar, Naligabetta Agraharam, Bhavani palace backside, Hosur Tamil Nadu 635109');
 $whatsapp = View::setting('whatsapp_number', '919344273433');
+$aboutServices = Service::getAll(true);
 
 require_once APP_ROOT . '/app/Views/layouts/header.php';
 ?>
@@ -52,7 +55,7 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
         <p style="margin-bottom: 1.25rem;">
           Based in <strong>Hosur</strong> and catering to weddings, family rituals, and corporate functions throughout Tamil Nadu and Karnataka, we take immense pride in our hands-on craftsmanship. We don't rely on outsourced generic templates; our in-house decorators meticulously construct every backdrop, drape every silk panel, and arrange every flower bloom by hand.
         </p>
-        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+        <div class="about-hero-actions" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;">
           <a href="<?= View::url('/gallery.php') ?>" class="btn btn-primary">View Our Portfolio</a>
           <a href="<?= View::url('/contact.php') ?>" class="btn btn-secondary">Get in Touch</a>
         </div>
@@ -62,11 +65,11 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
     <!-- Philosophy & Founder Highlight -->
     <section class="about-philosophy-card">
       <blockquote class="philosophy-quote">
-        &ldquo;When a family entrusts us with their daughter's wedding or their grandchild's naming ceremony, they are entrusting us with one of the most sacred days of their lives. That trust demands nothing less than perfection in every flower, every light, and every detail.&rdquo;
+        &ldquo;<?= View::e($founderQuote) ?>&rdquo;
       </blockquote>
 
       <div class="founder-highlight">
-        <img src="<?= View::asset('assets/images/brand/logo.png') ?>" alt="<?= View::e($founderName) ?>" class="founder-avatar" style="object-fit: contain; background: #121214; padding: 6px;">
+        <img src="<?= View::asset('assets/images/brand/logo.png') ?>" alt="<?= View::e($founderName) ?>" class="founder-avatar" style="object-fit: contain; background: var(--color-maroon-dark); border: 2px solid var(--color-gold); padding: 4px;">
         <div class="founder-info">
           <h4><?= View::e($founderName) ?></h4>
           <p><?= View::e($founderTitle) ?></p>
@@ -89,7 +92,7 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
             <div><strong>Contact Phones:</strong> <a href="tel:+919344273433" style="color: var(--color-gold); font-weight: 600;">+91 93442 73433</a> &bull; <a href="tel:+919659999856">+91 96599 99856</a></div>
             <div><strong>Official Email:</strong> <a href="mailto:akasheventmanagement87@gmail.com">akasheventmanagement87@gmail.com</a></div>
           </div>
-          <div style="display: flex; gap: 1rem;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
             <a href="https://wa.me/<?= $whatsapp ?>?text=<?= urlencode('Hello P. Manobalan, I would like to consult with you for my event.') ?>" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
               WhatsApp P. Manobalan
             </a>
@@ -113,53 +116,32 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
         </p>
       </div>
 
-      <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="card" style="padding: var(--space-xl);">
-          <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;">Weddings & Receptions</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-            Monumental stages with fresh flower arches, royal diwan seating, crystal chandeliers, and custom monogram backdrops.
-          </p>
-        </div>
-
-        <div class="card" style="padding: var(--space-xl);">
-          <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;">Traditional Seemantham</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-            Sacred South Indian baby shower backdrops featuring lotus motifs, Kolam panel art, brass deepam lamps, and seer plate display areas.
-          </p>
-        </div>
-
-        <div class="card" style="padding: var(--space-xl);">
-          <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;">Naming & Cradle Ceremonies</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-            Temple-inspired Lord Murugan and Lord Krishna themes, suspended floral cradles, and warm candle stands for blessing the newborn.
-          </p>
-        </div>
-
-        <div class="card" style="padding: var(--space-xl);">
-          <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;">Half Saree & Puberty Rites</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-            Culturally authentic festive backdrops with rich silk pleats, jasmine garlands, floral headpieces, and royal throne chairs.
-          </p>
-        </div>
-
-        <div class="card" style="padding: var(--space-xl);">
-          <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;">Birthdays & Milestones</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-            Custom balloon garlands, marquee light numbers, wooden garden fences, and bespoke themed cake plinths for memorable photo sessions.
-          </p>
-        </div>
-
-        <div class="card" style="padding: var(--space-xl);">
-          <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;">Light Production & DJ Sound</h3>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-            Building facade fairy lighting, garden light tunnels, professional moving head beam trusses, and acoustic sound engineering.
-          </p>
-        </div>
+      <div class="services-grid about-cater-grid">
+        <?php if (!empty($aboutServices)): ?>
+          <?php foreach ($aboutServices as $srv): ?>
+            <div class="card" style="padding: var(--space-xl);">
+              <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;"><?= View::e($srv['title']) ?></h3>
+              <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
+                <?= View::e($srv['short_description']) ?>
+              </p>
+              <a href="<?= View::url('/service-details.php?slug=' . urlencode($srv['slug'])) ?>" class="link-gold" style="font-size: 0.825rem; font-weight: 600; margin-top: 0.75rem; display: inline-flex; align-items: center; gap: 4px;">
+                View Details &rarr;
+              </a>
+            </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <div class="card" style="padding: var(--space-xl);">
+            <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem;">Weddings &amp; Receptions</h3>
+            <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+              Monumental stages with fresh flower arches, royal diwan seating, and custom monogram backdrops.
+            </p>
+          </div>
+        <?php endif; ?>
       </div>
     </section>
 
     <!-- Call to action -->
-    <section class="cta-banner" style="margin-bottom: var(--space-5xl);">
+    <section class="cta-banner">
       <h2 class="cta-headline">Plan Your Special Event with Us</h2>
       <p class="cta-subtext">
         Consult with P. Manobalan today for honest advice, customized themes, and transparent quotes.

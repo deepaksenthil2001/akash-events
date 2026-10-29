@@ -5,34 +5,40 @@ $siteName = View::setting('business_name', 'Akash Event Management');
 $phonePrimary = View::setting('phone_primary', '+91 93442 73433');
 $phoneSecondary = View::setting('phone_secondary', '+91 96599 99856');
 $emailPrimary = View::setting('email_primary', 'akasheventmanagement87@gmail.com');
-$address = View::setting('address_line', 'Bhavani Palace, Back side, Gokul Nagar, Hosur, Tamil Nadu 635109');
+$address = View::setting('address_line', '12, Gokul Nagar, Naligabetta Agraharam, Bhavani palace backside, Hosur Tamil Nadu 635109');
 $instagram = View::setting('instagram_url', 'https://www.instagram.com/akasheventmanagement');
 $googleBusiness = View::setting('google_business_url', 'https://share.google/nUP5Exqa3K1doUEfd');
 $whatsapp = View::setting('whatsapp_number', '919344273433');
 $pageJs = $pageJs ?? [];
 ?>
 
-  <!-- Global Lightbox Modal -->
+  <!-- Global Lightbox Modal with Multi-Photo Album Support -->
   <div class="lightbox-modal" id="global-lightbox" role="dialog" aria-modal="true" aria-label="Media Preview">
     <div class="lightbox-content">
       <button type="button" class="lightbox-btn-close" aria-label="Close Lightbox">&times;</button>
       
       <button type="button" class="lightbox-nav prev" aria-label="Previous Media">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
 
-      <img src="" alt="" class="lightbox-image" style="display: none;">
-      <video controls class="lightbox-video" style="display: none; max-width: 90vw; max-height: 75vh; border-radius: var(--radius-md);"></video>
+      <div class="lightbox-stage" style="display: flex; align-items: center; justify-content: center;">
+        <img src="" alt="" class="lightbox-image" style="display: none;">
+        <video controls class="lightbox-video" style="display: none; max-width: 90vw; max-height: 75vh; border-radius: var(--radius-md);"></video>
+      </div>
 
       <button type="button" class="lightbox-nav next" aria-label="Next Media">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
       </button>
 
-      <div class="lightbox-caption"></div>
+      <div class="lightbox-meta">
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+        <div class="lightbox-caption"></div>
+        <div class="lightbox-album-strip" id="lightbox-album-strip" style="display: none;"></div>
+      </div>
     </div>
   </div>
 
@@ -85,7 +91,6 @@ $pageJs = $pageJs ?? [];
             <li><a href="<?= View::url('/services.php') ?>" class="footer-link">Services Catalog</a></li>
             <li><a href="<?= View::url('/gallery.php') ?>" class="footer-link">Event Gallery</a></li>
             <li><a href="<?= View::url('/contact.php') ?>" class="footer-link">Contact & Enquiries</a></li>
-            <li><a href="<?= View::url('/admin/login.php') ?>" class="footer-link footer-link-subtle">Admin Portal</a></li>
           </ul>
         </div>
 
@@ -142,9 +147,9 @@ $pageJs = $pageJs ?? [];
           &copy; <?= date('Y') ?> Akash Event Management. All rights reserved. Registered in Hosur, Tamil Nadu.
         </div>
         <div class="footer-bottom-links">
-          <a href="<?= View::url('/contact.php') ?>" class="footer-bottom-link">Enquiries</a>
+          <a href="<?= View::url('/gallery.php') ?>" class="footer-bottom-link">Gallery</a>
           <span class="footer-bottom-divider" aria-hidden="true">&bull;</span>
-          <a href="<?= View::url('/admin/login.php') ?>" class="footer-bottom-link">Admin Portal</a>
+          <a href="<?= View::url('/contact.php') ?>" class="footer-bottom-link">Enquiries</a>
         </div>
       </div>
     </div>

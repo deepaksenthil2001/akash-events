@@ -138,6 +138,12 @@ p {
   border: 1px solid rgba(197, 160, 89, 0.3);
 }
 
+.badge-maroon {
+  background-color: var(--color-maroon-subtle);
+  color: var(--color-maroon);
+  border: 1px solid rgba(107, 29, 47, 0.22);
+}
+
 .badge-botanical {
   background-color: var(--color-botanical-soft);
   color: var(--color-botanical);

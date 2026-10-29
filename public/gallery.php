@@ -1,21 +1,31 @@
 <?php
 /**
- * Akash Event Management - Gallery & Portfolio
+ * Akash Event Management - Curated Event Gallery & Portfolio
+ * Presents authentic client celebrations with multi-photo collections (5-10 photographs per event)
  */
 
 require_once __DIR__ . '/../app/bootstrap.php';
 
 use App\Helpers\View;
 use App\Models\Gallery;
+use App\Models\Event;
 
-$pageTitle = 'Event Gallery & Portfolio | Akash Event Management - Hosur';
-$pageDescription = 'Browse the authentic event decoration portfolio of Akash Event Management: Grand wedding stages, fresh flower mandapams, romantic engagement arches, and birthday setups.';
+$pageTitle = 'Event Gallery & Curated Portfolio | Akash Event Management - Hosur';
+$pageDescription = 'Explore authentic celebrations crafted by Akash Event Management across Hosur and Bangalore. Browse multi-photo galleries of royal wedding stages, floral mandapams, baby showers, and birthdays.';
 $currentNav = 'gallery';
 $pageCss = ['assets/css/pages/gallery.css'];
 
-// Retrieve categories and published media from database
+// Retrieve categories and published events
 $categories = Gallery::getCategories(true);
-$mediaItems = Gallery::getMedia(null, null, true);
+$events = Event::getAll(null, null, true);
+
+// Pre-load photos for each event
+$eventsWithPhotos = [];
+foreach ($events as $ev) {
+    $photos = Event::getPhotos((int)$ev['id'], true);
+    $ev['photos'] = $photos;
+    $eventsWithPhotos[] = $ev;
+}
 
 $activeFilter = trim($_GET['category'] ?? 'all');
 
@@ -26,104 +36,142 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
 
     <!-- Header Section -->
     <section class="gallery-page-header">
-      <span class="section-eyebrow">Visual Excellence</span>
-      <h1 class="section-title">The Artistry of Every Moment</h1>
+      <span class="section-eyebrow">Craftsmanship & Milestones</span>
+      <h1 class="section-title"><?= View::e(View::setting('gallery_header_title', 'The Artistry of Every Celebration')) ?></h1>
       <p class="section-description">
-        Explore our curated portfolio of authentic celebrations. Every stage, floral arch, and ambient lighting production is designed and installed with meticulous care.
+        <?= View::e(View::setting('gallery_header_subtitle', 'Explore our curated portfolio of authentic celebrations. Each event showcases a bespoke collection of photographs capturing stage architecture, fresh flower arrangements, and ceremonial ambiance.')) ?>
       </p>
     </section>
 
     <!-- Filter Category Pills -->
     <div class="gallery-filters" role="tablist" aria-label="Event Categories">
       <button type="button" class="filter-pill <?= $activeFilter === 'all' ? 'active' : '' ?>" data-filter="all" role="tab">
-        All Works (<?= count($mediaItems) ?>)
+        All Celebrations (<?= count($eventsWithPhotos) ?>)
       </button>
-      
-      <?php 
-        $videoCount = count(array_filter($mediaItems, fn($i) => ($i['media_type'] ?? '') === 'video'));
-        if ($videoCount > 0): 
-      ?>
-        <button type="button" 
-                class="filter-pill <?= $activeFilter === 'video' ? 'active' : '' ?>" 
-                data-filter="video" 
-                role="tab">
-          Stage Videos (<?= $videoCount ?>)
-        </button>
-      <?php endif; ?>
 
       <?php foreach ($categories as $cat): ?>
-        <?php if ($cat['media_count'] > 0): ?>
+        <?php 
+          // Count events in this category
+          $catEventsCount = count(array_filter($eventsWithPhotos, fn($e) => (int)($e['category_id'] ?? 0) === (int)$cat['id']));
+          if ($catEventsCount > 0):
+        ?>
           <button type="button" 
                   class="filter-pill <?= $activeFilter === $cat['slug'] ? 'active' : '' ?>" 
                   data-filter="<?= View::e($cat['slug']) ?>" 
                   role="tab">
-            <?= View::e($cat['name']) ?> (<?= (int) $cat['media_count'] ?>)
+            <?= View::e($cat['name']) ?> (<?= $catEventsCount ?>)
           </button>
         <?php endif; ?>
       <?php endforeach; ?>
     </div>
 
-    <!-- Gallery Media Grid -->
-    <?php if (!empty($mediaItems)): ?>
-      <div class="gallery-grid" id="gallery-grid">
-        <?php foreach ($mediaItems as $item): ?>
-          <article class="gallery-card"
-                   data-category="<?= View::e($item['category_slug'] ?? 'all') ?>"
-                   data-src="<?= View::asset($item['file_path']) ?>"
-                   data-type="<?= $item['media_type'] ?>"
-                   data-title="<?= View::e($item['title']) ?>"
-                   data-caption="<?= View::e($item['caption'] ?? '') ?>"
+    <!-- Curated Event Albums Grid -->
+    <?php if (!empty($eventsWithPhotos)): ?>
+      <div class="event-gallery-grid" id="event-gallery-grid">
+        <?php foreach ($eventsWithPhotos as $ev): ?>
+          <?php 
+            $photoCount = count($ev['photos']);
+            $photosJson = json_encode($ev['photos']);
+            $coverImg = !empty($ev['cover_image']) ? $ev['cover_image'] : ($ev['photos'][0]['file_path'] ?? '/assets/images/client/image-005.jpg');
+            $previewPhotos = array_slice($ev['photos'], 0, 4);
+          ?>
+          <article class="event-card"
+                   data-category="<?= View::e($ev['category_slug'] ?? 'all') ?>"
+                   data-event-title="<?= View::e($ev['title']) ?>"
+                   data-photos="<?= htmlspecialchars($photosJson, ENT_QUOTES, 'UTF-8') ?>"
                    tabindex="0"
                    role="button"
-                   aria-label="View <?= View::e($item['title']) ?>">
+                   aria-label="View <?= View::e($ev['title']) ?> event gallery">
 
-            <div class="gallery-media-wrapper">
-              <?php if ($item['media_type'] === 'video'): ?>
-                <video src="<?= View::asset($item['file_path']) ?>" muted playsinline></video>
-                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.3);">
-                  <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(255, 255, 255, 0.9); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md);">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#1D1D1F">
-                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                  </div>
-                </div>
-              <?php else: ?>
-                <img src="<?= View::asset($item['file_path']) ?>" alt="<?= View::e($item['title']) ?>" loading="lazy">
-              <?php endif; ?>
-
-              <div class="gallery-badge">
-                <?php if (!empty($item['is_concept'])): ?>
-                  <span class="badge badge-concept">Editorial Concept</span>
-                <?php else: ?>
-                  <span class="badge badge-gold">Authentic Work</span>
-                <?php endif; ?>
+            <!-- Event Cover Image -->
+            <div class="event-card-media">
+              <img src="<?= View::asset($coverImg) ?>" alt="<?= View::e($ev['title']) ?>" loading="lazy">
+              
+              <div class="event-badge-group">
+                <span class="badge badge-maroon">
+                  <?= View::e($ev['category_name'] ?? 'Celebration') ?>
+                </span>
+                
+                <span class="event-count-badge">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <?= $photoCount ?> Photos
+                </span>
               </div>
             </div>
 
-            <div class="gallery-info">
-              <h2 class="gallery-item-title"><?= View::e($item['title']) ?></h2>
-              <?php if (!empty($item['caption'])): ?>
-                <p class="gallery-item-caption"><?= View::e($item['caption']) ?></p>
+            <!-- Mini Preview Thumbnails (if >= 2 photos) -->
+            <?php if (count($previewPhotos) > 1): ?>
+              <div class="event-thumbs-preview" aria-hidden="true">
+                <?php foreach ($previewPhotos as $idx => $p): ?>
+                  <div class="event-thumb-item" data-index="<?= $idx ?>" title="Click to view photo">
+                    <img src="<?= View::asset($p['file_path']) ?>" alt="" loading="lazy">
+                    <?php if ($idx === 3 && $photoCount > 4): ?>
+                      <div class="event-thumb-more">+<?= $photoCount - 3 ?></div>
+                    <?php endif; ?>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+            <?php endif; ?>
+
+            <!-- Card Content -->
+            <div class="event-card-body">
+              <div class="event-meta-line">
+                <span><?= View::e($ev['event_type'] ?? 'Special Celebration') ?></span>
+                <?php if (!empty($ev['location'])): ?>
+                  <span>&bull;</span>
+                  <span><?= View::e($ev['location']) ?></span>
+                <?php endif; ?>
+              </div>
+
+              <h2 class="event-card-title"><?= View::e($ev['title']) ?></h2>
+
+              <?php if (!empty($ev['description'])): ?>
+                <p class="event-card-desc"><?= View::e($ev['description']) ?></p>
               <?php endif; ?>
+
+              <div class="event-card-footer">
+                <span class="event-action-link">
+                  Browse Event Album
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+
+                <span style="font-size: 0.75rem; color: var(--color-text-tertiary);">
+                  <?= $photoCount ?> <?= $photoCount === 1 ? 'Photograph' : 'Photographs' ?>
+                </span>
+              </div>
             </div>
+
           </article>
         <?php endforeach; ?>
       </div>
-    <?php else: ?>
-      <div class="gallery-empty-state">
-        <h3 style="margin-bottom: 0.5rem;">No Published Media Available</h3>
-        <p>New gallery photographs and videos are currently being prepared. Please check back soon.</p>
-      </div>
     <?php endif; ?>
 
+    <!-- Empty State Container -->
+    <div class="gallery-empty-state" id="gallery-empty-state" style="<?= empty($eventsWithPhotos) ? 'display: block;' : 'display: none;' ?>">
+      <h3 style="font-size: var(--font-size-xl); margin-bottom: 0.5rem; color: var(--color-text-primary);">No Celebrations Found in this Category</h3>
+      <p style="color: var(--color-text-secondary); max-width: 500px; margin: 0 auto 1.5rem auto;">
+        We are actively photographing and uploading new stage setups for this category. Please view all works or connect with our team.
+      </p>
+      <a href="<?= View::url('/gallery.php') ?>" class="btn btn-secondary btn-sm">View All Celebrations</a>
+    </div>
+
     <!-- Consultation CTA -->
-    <section class="cta-banner" style="margin-bottom: var(--space-5xl);">
+    <section class="cta-banner">
       <h2 class="cta-headline">Envisioning a Similar Stage for Your Event?</h2>
       <p class="cta-subtext">
-        We customize every color, floral variety, and backdrop dimension to match your celebration hall.
+        We customize every floral palette, backdrop dimension, and lighting tone to complement your celebration venue.
       </p>
       <div class="cta-buttons">
         <a href="<?= View::url('/contact.php') ?>" class="btn btn-gold btn-lg">Request Stage Quotation</a>
+        <a href="<?= View::url('/about.php') ?>" class="btn btn-secondary btn-lg" style="background: rgba(255, 255, 255, 0.15); color: #FFFFFF; border-color: rgba(255, 255, 255, 0.3);">
+          Our Floral Story
+        </a>
       </div>
     </section>
 

@@ -20,7 +20,14 @@
   --color-text-inverse: #FFFFFF;
   --color-text-inverse-muted: #A1A1A6;
 
-  /* Accent Colors - Champagne Gold & Botanical Green */
+  /* Accent Colors - Maroon & Champagne Gold Brand Identity */
+  --color-maroon: #6B1D2F;
+  --color-maroon-dark: #4A0E1A;
+  --color-maroon-light: #8E2B3E;
+  --color-maroon-deep: #380812;
+  --color-maroon-subtle: #FBF4F5;
+  --color-maroon-glow: rgba(107, 29, 47, 0.16);
+
   --color-gold: #C5A059;
   --color-gold-light: #E6D5B8;
   --color-gold-deep: #9A7736;

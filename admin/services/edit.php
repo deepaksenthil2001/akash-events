@@ -166,7 +166,12 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
 
       <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--admin-border); display: flex; justify-content: flex-end; gap: 1rem;">
         <a href="<?= View::url('/admin/services/index.php') ?>" class="admin-btn admin-btn-secondary">Cancel</a>
-        <button type="submit" class="admin-btn admin-btn-primary">Update Service</button>
+        <button type="submit" class="admin-btn admin-btn-gold admin-btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Update Service
+        </button>
       </div>
     </form>
   </div>

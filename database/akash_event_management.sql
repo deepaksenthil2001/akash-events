@@ -84,12 +84,39 @@ CREATE TABLE `gallery_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------------
+-- 4b. Table: gallery_events (Curated Client Events with 5-10 Photos)
+-- --------------------------------------------------------------
+DROP TABLE IF EXISTS `gallery_events`;
+CREATE TABLE `gallery_events` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `category_id` INT UNSIGNED NULL,
+  `title` VARCHAR(150) NOT NULL,
+  `slug` VARCHAR(160) NOT NULL UNIQUE,
+  `event_type` VARCHAR(80) NULL,
+  `event_date` DATE NULL,
+  `location` VARCHAR(150) NULL,
+  `description` TEXT NULL,
+  `cover_image` VARCHAR(255) NULL,
+  `is_featured` TINYINT(1) NOT NULL DEFAULT 0,
+  `is_published` TINYINT(1) NOT NULL DEFAULT 1,
+  `display_order` INT NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_events_published` (`is_published`, `display_order`),
+  INDEX `idx_events_category` (`category_id`),
+  CONSTRAINT `fk_events_category` FOREIGN KEY (`category_id`)
+    REFERENCES `gallery_categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------------
 -- 5. Table: gallery_media
 -- --------------------------------------------------------------
 DROP TABLE IF EXISTS `gallery_media`;
 CREATE TABLE `gallery_media` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_id` INT UNSIGNED NULL,
+  `event_id` INT UNSIGNED NULL,
   `title` VARCHAR(120) NOT NULL,
   `caption` VARCHAR(255) NULL,
   `media_type` ENUM('image', 'video') NOT NULL DEFAULT 'image',
@@ -106,8 +133,11 @@ CREATE TABLE `gallery_media` (
   INDEX `idx_gallery_published_order` (`is_published`, `display_order`),
   INDEX `idx_gallery_featured` (`is_featured`),
   INDEX `idx_gallery_category` (`category_id`),
+  INDEX `idx_gallery_event` (`event_id`),
   CONSTRAINT `fk_gallery_category` FOREIGN KEY (`category_id`)
-    REFERENCES `gallery_categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+    REFERENCES `gallery_categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_gallery_event` FOREIGN KEY (`event_id`)
+    REFERENCES `gallery_events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------------
@@ -167,7 +197,7 @@ INSERT INTO `site_settings` (`setting_key`, `setting_value`, `setting_group`, `d
 ('phone_secondary', '+91 96599 99856', 'contact', 'Secondary verified phone number'),
 ('email_primary', 'akasheventmanagement87@gmail.com', 'contact', 'Official enquiries email address'),
 ('email_secondary', 'akasheventmanagement@gmail.com', 'contact', 'Alternative business email address'),
-('address_line', 'Bhavani Palace, Back side, Gokul Nagar, Hosur, Tamil Nadu 635109', 'contact', 'Physical office / venue location'),
+('address_line', '12, Gokul Nagar, Naligabetta Agraharam, Bhavani palace backside, Hosur Tamil Nadu 635109', 'contact', 'Physical office / venue location'),
 ('service_areas', 'Hosur, Krishnagiri, Bangalore & Surrounding Regions', 'contact', 'Primary coverage regions'),
 ('instagram_url', 'https://www.instagram.com/akasheventmanagement', 'social', 'Official Instagram profile'),
 ('google_business_url', 'https://share.google/nUP5Exqa3K1doUEfd', 'social', 'Official Google Business Profile link'),
@@ -184,7 +214,34 @@ INSERT INTO `site_settings` (`setting_key`, `setting_value`, `setting_group`, `d
 ('about_intro_lead', 'Every celebration carries a heartbeat — a singular moment in time when family, friends, and lifelong memories unite.', 'about', 'About page lead statement'),
 ('about_philosophy', 'Founded by P. Manobalan, Akash Event Management has spent over a decade perfecting the delicate balance between timeless Indian ceremonial heritage and modern visual refinement. From intimate naming ceremonies to grand wedding mandapams, we treat every celebration as a bespoke work of art.', 'about', 'Core company philosophy'),
 ('meta_title_default', 'Akash Event Management | Premium Stage Decoration & Event Planning in Hosur & Bangalore', 'seo', 'Default SEO Page Title'),
-('meta_description_default', 'Akash Event Management specializes in luxury wedding stages, floral decoration, reception mandapams, baby showers, and birthday setups across Hosur and Bangalore. 10+ years of excellence.', 'seo', 'Default SEO Meta Description');
+('meta_description_default', 'Akash Event Management specializes in luxury wedding stages, floral decoration, reception mandapams, baby showers, and birthday setups across Hosur and Bangalore. 10+ years of excellence.', 'seo', 'Default SEO Meta Description'),
+('stat_1_val', '10+', 'editorial', 'Milestone metric 1 number'),
+('stat_1_label', 'Years of Craftsmanship', 'editorial', 'Milestone metric 1 description'),
+('stat_2_val', '1,200+', 'editorial', 'Milestone metric 2 number'),
+('stat_2_label', 'Celebrations Crafted', 'editorial', 'Milestone metric 2 description'),
+('stat_3_val', '100%', 'editorial', 'Milestone metric 3 number'),
+('stat_3_label', 'Bespoke Artistry', 'editorial', 'Milestone metric 3 description'),
+('stat_4_val', '8+', 'editorial', 'Milestone metric 4 number'),
+('stat_4_label', 'Core Event Domains', 'editorial', 'Milestone metric 4 description'),
+('home_intro_eyebrow', 'The Craft of Celebration', 'editorial', 'Homepage intro eyebrow'),
+('home_intro_title', 'Elevating Rituals into Living Works of Art.', 'editorial', 'Homepage intro title'),
+('home_intro_p1', 'Founded by master decorator P. Manobalan, Akash Event Management has spent over a decade curating extraordinary celebration spaces across Hosur, Krishnagiri, and Bangalore.', 'editorial', 'Homepage intro paragraph 1'),
+('home_intro_p2', 'Whether designing a monumental floral mandapam, an intimate champagne-gold engagement stage, or a heartwarming naming ceremony, we harmonize fresh floral fragrances, architectural silhouettes, and warm ambient lighting.', 'editorial', 'Homepage intro paragraph 2'),
+('home_story_eyebrow', 'Precision & Execution', 'editorial', 'Homepage transformation story eyebrow'),
+('home_story_title', 'From Empty Hall to Cinematic Wonder.', 'editorial', 'Homepage transformation story title'),
+('home_story_p1', 'An empty convention hall or outdoor lawn is a blank canvas. Our process begins with understanding the lighting angles, sightlines, and ceremonial flow.', 'editorial', 'Homepage transformation story paragraph 1'),
+('home_story_p2', 'Our master floral teams arrive hours ahead to hand-wire fresh roses, jasmines, and lilies. Spotlights and chandeliers are meticulously positioned to eliminate shadows, creating the dream backdrop for your wedding photography.', 'editorial', 'Homepage transformation story paragraph 2'),
+('founder_quote', 'When a family entrusts us with their daughter\'s wedding or their grandchild\'s naming ceremony, they are entrusting us with one of the most sacred days of their lives. That trust demands nothing less than perfection in every flower, every light, and every detail.', 'about', 'Founder official quote'),
+('about_card_1_title', 'Fresh Floral Mandapams & Stage Architecture', 'about', 'About capability card 1 title'),
+('about_card_1_desc', 'Authentic marigold cascades, Bangalore rose canopies, and sculpted wooden backdrops designed for timeless rituals.', 'about', 'About capability card 1 text'),
+('about_card_2_title', 'Bespoke Themes & Milestone Setups', 'about', 'About capability card 2 title'),
+('about_card_2_desc', 'Custom pastel themes, floral cradle rings, and playful backdrops for naming ceremonies and 1st birthdays.', 'about', 'About capability card 2 text'),
+('about_card_3_title', 'Light Production & DJ Sound', 'about', 'About capability card 3 title'),
+('about_card_3_desc', 'Building facade fairy lighting, garden light tunnels, professional moving head beam trusses, and acoustic sound engineering.', 'about', 'About capability card 3 text'),
+('services_header_title', 'Crafting Unforgettable Experiences', 'services', 'Services catalog page title'),
+('services_header_subtitle', 'From sacred mandapams to contemporary illuminated stages, explore our full spectrum of event styling and production services across Hosur and Bangalore.', 'services', 'Services catalog page subtitle'),
+('gallery_header_title', 'The Artistry of Every Celebration', 'gallery', 'Gallery page title'),
+('gallery_header_subtitle', 'Explore our curated portfolio of authentic celebrations. Each event showcases a bespoke collection of photographs capturing stage architecture, fresh flower arrangements, and ceremonial ambiance.', 'gallery', 'Gallery page subtitle');
 
 -- Gallery Categories
 INSERT INTO `gallery_categories` (`id`, `slug`, `name`, `description`, `display_order`, `is_active`) VALUES

@@ -21,7 +21,7 @@ $settings = [
     ['phone_secondary', '+91 96599 99856', 'contact', 'Secondary verified phone number'],
     ['email_primary', 'akasheventmanagement87@gmail.com', 'contact', 'Official enquiries email address'],
     ['email_secondary', 'akasheventmanagement@gmail.com', 'contact', 'Alternative business email address'],
-    ['address_line', 'Bhavani Palace, Back side, Gokul Nagar, Hosur, Tamil Nadu 635109', 'contact', 'Physical office / venue location'],
+    ['address_line', '12, Gokul Nagar, Naligabetta Agraharam, Bhavani palace backside, Hosur Tamil Nadu 635109', 'contact', 'Physical office / venue location'],
     ['service_areas', 'Hosur, Krishnagiri, Bangalore & Surrounding Regions', 'contact', 'Primary coverage regions'],
     ['instagram_url', 'https://www.instagram.com/akasheventmanagement', 'social', 'Official Instagram profile'],
     ['google_business_url', 'https://share.google/nUP5Exqa3K1doUEfd', 'social', 'Official Google Business Profile link'],

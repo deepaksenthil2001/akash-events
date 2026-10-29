@@ -14,7 +14,7 @@ Built entirely with **Native PHP (OOP / MVC-inspired architecture)**, **MySQL (P
 - **Primary Phone**: `+91 93442 73433`
 - **Secondary Phone**: `+91 96599 99856`
 - **Enquiries Email**: `akasheventmanagement87@gmail.com` / `akasheventmanagement@gmail.com`
-- **Physical Address**: Bhavani Palace, Back side, Gokul Nagar, Hosur, Tamil Nadu 635109
+- **Physical Address**: 12, Gokul Nagar, Naligabetta Agraharam, Bhavani palace backside, Hosur Tamil Nadu 635109
 - **Service Regions**: Hosur, Krishnagiri, Bangalore & Surrounding Regions
 - **Experience Milestone**: 10+ Years of Craftsmanship & Celebrations (1,200+ Events)
 - **Instagram**: [instagram.com/akasheventmanagement](https://www.instagram.com/akasheventmanagement)

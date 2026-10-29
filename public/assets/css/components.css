@@ -196,6 +196,20 @@
   color: #FFFFFF;
 }
 
+.btn-maroon {
+  background: linear-gradient(135deg, #7A1F35 0%, #5B1425 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px var(--color-maroon-glow);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-maroon:hover {
+  background: linear-gradient(135deg, #8E2B3E 0%, #6B1D2F 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(107, 29, 47, 0.3);
+  color: #FFFFFF;
+}
+
 .btn-gold {
   background: linear-gradient(135deg, #D4AF37 0%, #C5A059 100%);
   color: #FFFFFF;
@@ -337,12 +351,61 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
+.lightbox-meta {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 1rem;
+  gap: 0.35rem;
+}
+
+.lightbox-counter {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold-light);
+}
+
 .lightbox-caption {
-  margin-top: var(--space-md);
+  margin-top: 0;
   color: var(--color-surface);
   text-align: center;
   font-size: var(--font-size-sm);
-  max-width: 600px;
+  max-width: 650px;
+  line-height: var(--line-height-snug);
+}
+
+.lightbox-album-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 8px 4px 2px 4px;
+}
+
+.lightbox-album-thumb {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-xs);
+  border: 2px solid transparent;
+  cursor: pointer;
+  object-fit: cover;
+  opacity: 0.6;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.lightbox-album-thumb:hover,
+.lightbox-album-thumb.active {
+  opacity: 1;
+  border-color: var(--color-gold);
+  transform: scale(1.08);
 }
 
 .lightbox-btn-close {
@@ -804,3 +867,68 @@
 .ios-bar-primary:hover {
   background: linear-gradient(135deg, #DFBD4D 0%, #B89249 100%);
 }
+
+/* -------------------------------------------------------------
+ * 9. Call to Action (CTA) Banner - Shared Component
+ * ------------------------------------------------------------- */
+.cta-banner {
+  background: linear-gradient(135deg, #1D1D1F 0%, #121214 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: clamp(2.5rem, 2rem + 3vw, 4.5rem) 1.5rem;
+  text-align: center;
+  margin-top: var(--space-4xl);
+  margin-bottom: var(--space-4xl);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--color-gold-glow) 0%, transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.cta-headline {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: var(--space-sm);
+  position: relative;
+  z-index: 2;
+  letter-spacing: -0.02em;
+}
+
+.cta-subtext {
+  font-size: var(--font-size-base);
+  color: var(--color-text-inverse-muted);
+  max-width: 580px;
+  margin: 0 auto var(--space-xl) auto;
+  position: relative;
+  z-index: 2;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  position: relative;
+  z-index: 2;
+  flex-wrap: wrap;
+}
+
+.cta-buttons .btn {
+  text-decoration: none;
+}
+

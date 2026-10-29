@@ -61,4 +61,28 @@ class Admin
         $sql = "UPDATE admins SET password_hash = :h WHERE id = :id";
         return $db->execute($sql, [':id' => $id, ':h' => $hash]) > 0;
     }
+
+    public static function count(): int
+    {
+        $db = Database::getInstance();
+        return (int) $db->fetchColumn("SELECT COUNT(*) FROM admins");
+    }
+
+    public static function existsByUsername(string $username, ?int $excludeId = null): bool
+    {
+        $db = Database::getInstance();
+        if ($excludeId !== null) {
+            $cnt = $db->fetchColumn("SELECT COUNT(*) FROM admins WHERE username = :u AND id != :id", [':u' => $username, ':id' => $excludeId]);
+        } else {
+            $cnt = $db->fetchColumn("SELECT COUNT(*) FROM admins WHERE username = :u", [':u' => $username]);
+        }
+        return (int) $cnt > 0;
+    }
+
+    public static function delete(int $id): bool
+    {
+        $db = Database::getInstance();
+        $sql = "DELETE FROM admins WHERE id = :id";
+        return $db->execute($sql, [':id' => $id]) > 0;
+    }
 }

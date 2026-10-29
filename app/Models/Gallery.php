@@ -187,4 +187,109 @@ class Gallery
 
         return (int) $db->fetchColumn($sql, $params);
     }
+
+    /**
+     * Get a category by its ID
+     */
+    public static function getCategoryById(int $id): ?array
+    {
+        $db = Database::getInstance();
+        return $db->fetch("SELECT * FROM gallery_categories WHERE id = :id", [':id' => $id]);
+    }
+
+    /**
+     * Create a new category
+     */
+    public static function createCategory(array $data): int
+    {
+        $db = Database::getInstance();
+        $name = trim($data['name'] ?? '');
+        if (empty($name)) {
+            return 0;
+        }
+
+        $baseSlug = !empty($data['slug']) ? Sanitizer::slug($data['slug']) : Sanitizer::slug($name);
+        $slug = $baseSlug;
+        $counter = 1;
+
+        while ($db->fetchColumn("SELECT COUNT(*) FROM gallery_categories WHERE slug = :slug", [':slug' => $slug]) > 0) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
+        $sql = "INSERT INTO gallery_categories (slug, name, description, display_order, is_active)
+                VALUES (:slug, :name, :description, :display_order, :is_active)";
+        
+        $params = [
+            ':slug' => $slug,
+            ':name' => $name,
+            ':description' => !empty($data['description']) ? trim($data['description']) : null,
+            ':display_order' => (int) ($data['display_order'] ?? 0),
+            ':is_active' => isset($data['is_active']) ? (int) $data['is_active'] : 1,
+        ];
+
+        $db->execute($sql, $params);
+        return (int) $db->lastInsertId();
+    }
+
+    /**
+     * Update an existing category
+     */
+    public static function updateCategory(int $id, array $data): bool
+    {
+        $db = Database::getInstance();
+        $name = trim($data['name'] ?? '');
+        if (empty($name)) {
+            return false;
+        }
+
+        $sql = "UPDATE gallery_categories 
+                SET name = :name, description = :description, display_order = :display_order, is_active = :is_active
+                WHERE id = :id";
+        
+        $params = [
+            ':id' => $id,
+            ':name' => $name,
+            ':description' => !empty($data['description']) ? trim($data['description']) : null,
+            ':display_order' => (int) ($data['display_order'] ?? 0),
+            ':is_active' => isset($data['is_active']) ? (int) $data['is_active'] : 1,
+        ];
+
+        return $db->execute($sql, $params) >= 0;
+    }
+
+    /**
+     * Delete a category safely without deleting events or photos
+     */
+    public static function deleteCategory(int $id): bool
+    {
+        $db = Database::getInstance();
+        $db->execute("UPDATE gallery_events SET category_id = NULL WHERE category_id = :id", [':id' => $id]);
+        $db->execute("UPDATE gallery_media SET category_id = NULL WHERE category_id = :id", [':id' => $id]);
+        return $db->execute("DELETE FROM gallery_categories WHERE id = :id", [':id' => $id]) > 0;
+    }
+
+    /**
+     * Find existing category by name or create a new one automatically
+     */
+    public static function findOrCreateCategory(string $name, ?string $description = null): int
+    {
+        $name = trim($name);
+        if (empty($name)) {
+            return 0;
+        }
+
+        $db = Database::getInstance();
+        $existing = $db->fetch("SELECT id FROM gallery_categories WHERE LOWER(name) = LOWER(:name)", [':name' => $name]);
+        if ($existing && !empty($existing['id'])) {
+            return (int) $existing['id'];
+        }
+
+        return self::createCategory([
+            'name' => $name,
+            'description' => $description,
+            'is_active' => 1,
+            'display_order' => 99,
+        ]);
+    }
 }

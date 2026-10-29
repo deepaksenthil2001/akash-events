@@ -7,6 +7,7 @@ require_once __DIR__ . '/../app/bootstrap.php';
 use App\Core\Database;
 use App\Models\Service;
 use App\Models\Gallery;
+use App\Models\Event;
 use App\Models\Setting;
 use App\Models\Enquiry;
 use App\Models\Admin;
@@ -34,6 +35,10 @@ if (empty($services)) {
 // Check Gallery
 $gallery = Gallery::getMedia(null, null, true);
 echo "[PASS] Active Gallery media loaded: " . count($gallery) . "\n";
+
+// Check Events
+$events = Event::getAll(null, null, true);
+echo "[PASS] Active Curated Events loaded: " . count($events) . "\n";
 
 // Check Categories
 $categories = Gallery::getCategories();

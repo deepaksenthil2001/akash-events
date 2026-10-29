@@ -47,7 +47,7 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
 
       <div style="display: flex; gap: 0.75rem; align-items: center;">
         <input type="text" class="table-search-input form-input" placeholder="Search services..." style="width: 200px; padding: 0.45rem 0.75rem; font-size: 0.85rem;">
-        <a href="<?= View::url('/admin/services/create.php') ?>" class="admin-btn admin-btn-primary">
+        <a href="<?= View::url('/admin/services/create.php') ?>" class="admin-btn admin-btn-gold">
           + Add New Service
         </a>
       </div>

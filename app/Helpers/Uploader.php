@@ -211,6 +211,49 @@ class Uploader
         return $saved;
     }
 
+    /**
+     * Upload multiple images from $_FILES['name']
+     * @return array Array of upload results with ['uploaded' => [...], 'errors' => [...]]
+     */
+    public static function uploadMultipleImages(array $files, string $subfolder = 'gallery', bool $createThumbnail = true): array
+    {
+        $uploaded = [];
+        $errors = [];
+
+        if (!isset($files['name']) || !is_array($files['name'])) {
+            return ['uploaded' => [], 'errors' => ['No files provided.']];
+        }
+
+        $count = count($files['name']);
+        for ($i = 0; $i < $count; $i++) {
+            if ($files['error'][$i] === UPLOAD_ERR_NO_FILE) {
+                continue;
+            }
+
+            $singleFile = [
+                'name' => $files['name'][$i],
+                'type' => $files['type'][$i] ?? '',
+                'tmp_name' => $files['tmp_name'][$i],
+                'error' => $files['error'][$i],
+                'size' => $files['size'][$i],
+            ];
+
+            $res = self::uploadImage($singleFile, $subfolder, $createThumbnail);
+            if ($res['success']) {
+                $res['original_name'] = $files['name'][$i];
+                $uploaded[] = $res;
+            } else {
+                $errors[] = "File '{$files['name'][$i]}': " . $res['error'];
+            }
+        }
+
+        return [
+            'uploaded' => $uploaded,
+            'errors' => $errors,
+            'count' => count($uploaded),
+        ];
+    }
+
     private static function uploadErrorMessage(int $code): string
     {
         return match ($code) {

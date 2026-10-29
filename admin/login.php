@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="admin-login-box">
       
       <div style="text-align: center; margin-bottom: 2rem;">
-        <img src="<?= View::asset('assets/images/brand/logo.jpg') ?>" alt="Akash Event Management" width="60" height="60" style="border-radius: var(--radius-sm); margin-bottom: 1rem; box-shadow: var(--shadow-sm);">
-        <h1 style="font-size: 1.5rem; font-weight: 700; color: #1A202C; margin-bottom: 0.25rem;">Akash Events</h1>
-        <p style="font-size: 0.85rem; color: #718096;">Executive Business Administration Portal</p>
+        <img src="<?= View::asset('assets/images/brand/logo-admin.png') ?>" alt="Akash Event Management" style="height: 52px; width: auto; object-fit: contain; margin-bottom: 1rem; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));">
+        <h1 style="font-size: 1.5rem; font-weight: 700; color: #0F172A; margin-bottom: 0.25rem;">Akash Events</h1>
+        <p style="font-size: 0.85rem; color: #64748B;">Client Management &amp; Control Portal</p>
       </div>
 
       <?php if (!empty($error)): ?>
@@ -82,8 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <input type="password" id="password" name="password" class="form-input" required placeholder="Enter administrative password">
         </div>
 
-        <button type="submit" class="admin-btn admin-btn-primary" style="width: 100%; padding: 0.85rem; font-size: 0.95rem; margin-top: 0.5rem;">
-          Authenticate & Access Dashboard
+        <button type="submit" class="admin-btn admin-btn-gold admin-btn-lg" style="width: 100%; margin-top: 0.75rem;">
+          Sign In to Dashboard
         </button>
       </form>
 

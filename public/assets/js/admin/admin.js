@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 2. Image Upload Preview
-  const imageInputs = document.querySelectorAll('input[type="file"][accept*="image"]');
+  // 2. Single Image Upload Preview
+  const imageInputs = document.querySelectorAll('input[type="file"][data-preview-target]');
   imageInputs.forEach(input => {
     input.addEventListener('change', () => {
       const file = input.files[0];
@@ -49,12 +49,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Mobile Sidebar Toggle
+  // 4. Mobile Sidebar Toggle & Overlay
   const sidebarToggle = document.querySelector('.admin-sidebar-toggle');
   const sidebar = document.querySelector('.admin-sidebar');
+  let overlay = document.querySelector('.admin-sidebar-overlay');
+
+  if (!overlay && sidebar) {
+    overlay = document.createElement('div');
+    overlay.className = 'admin-sidebar-overlay';
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('is-open');
+      overlay.classList.remove('is-active');
+    });
+  }
+
   if (sidebarToggle && sidebar) {
     sidebarToggle.addEventListener('click', () => {
       sidebar.classList.toggle('is-open');
+      if (overlay) {
+        overlay.classList.toggle('is-active', sidebar.classList.contains('is-open'));
+      }
     });
   }
+
+  // 5. Drag and Drop Highlighting on Dropzones
+  const dropzones = document.querySelectorAll('.admin-dropzone');
+  dropzones.forEach(zone => {
+    ['dragenter', 'dragover'].forEach(eventName => {
+      zone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        zone.classList.add('dragover');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      zone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+      }, false);
+    });
+  });
 });

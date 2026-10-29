@@ -1,39 +1,35 @@
 <?php
 /**
- * Akash Event Management - Admin Gallery Media List
+ * Akash Event Management - Admin Events & Photo Galleries Manager
  */
 
 require_once __DIR__ . '/../../app/bootstrap.php';
 
 use App\Helpers\View;
 use App\Core\Csrf;
+use App\Models\Event;
 use App\Models\Gallery;
 
-$pageTitle = 'Manage Gallery Media | Akash Event Management Admin';
-$pageHeaderTitle = 'Gallery & Portfolio Media';
+$pageTitle = 'Manage Events & Photos | Akash Event Management Admin';
+$pageHeaderTitle = 'Events & Photo Galleries';
 $currentAdminNav = 'gallery';
 
 // Handle POST actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!Csrf::validate($_POST['csrf_token'] ?? '')) {
-        flash('error', 'Security token invalid. Please try again.');
+        flash('error', 'Security token invalid. Please refresh the page and try again.');
     } else {
         $action = $_POST['action'] ?? '';
         $id = (int) ($_POST['id'] ?? 0);
 
         if ($action === 'toggle_publish' && $id > 0) {
-            Gallery::togglePublish($id);
-            flash('success', 'Media publication status updated.');
-        } elseif ($action === 'toggle_featured' && $id > 0) {
-            Gallery::toggleFeatured($id);
-            flash('success', 'Media featured status updated.');
+            Event::togglePublish($id);
+            flash('success', 'Event visibility status updated.');
         } elseif ($action === 'delete' && $id > 0) {
-            $item = Gallery::getById($id);
-            if ($item) {
-                // Delete physical uploaded file if in uploads directory
-                \App\Helpers\Uploader::deleteFile($item['file_path']);
-                Gallery::delete($id);
-                flash('success', 'Media item removed successfully.');
+            if (Event::delete($id)) {
+                flash('success', 'Event and its associated photographs removed successfully.');
+            } else {
+                flash('error', 'Could not delete the event.');
             }
         }
     }
@@ -44,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $categories = Gallery::getCategories(false);
 $filterCategory = trim($_GET['category'] ?? '');
 
-$mediaList = Gallery::getMedia(
+$eventsList = Event::getAll(
     !empty($filterCategory) ? (int)$filterCategory : null,
     null,
     false
@@ -56,16 +52,16 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
   <div class="admin-card">
     <div class="admin-card-header">
       <div>
-        <h2 class="admin-card-title">Gallery Media Items (<?= count($mediaList) ?>)</h2>
-        <p style="font-size: 0.85rem; color: #718096; margin-top: 2px;">
-          Manage photos, stage decoration captures, and video showcases displayed on the public gallery.
+        <h1 class="admin-card-title">Events &amp; Galleries (<?= count($eventsList) ?>)</h1>
+        <p class="admin-card-subtitle">
+          Manage celebration portfolios and photographs displayed on the website gallery.
         </p>
       </div>
 
       <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
         <!-- Category Filter -->
         <form action="<?= View::url('/admin/gallery/index.php') ?>" method="GET" style="display: flex; gap: 0.5rem;">
-          <select name="category" onchange="this.form.submit()" class="form-select" style="padding: 0.45rem 0.75rem; font-size: 0.85rem; width: auto;">
+          <select name="category" onchange="this.form.submit()" class="form-select" style="min-height: 38px; padding: 0.45rem 2rem 0.45rem 0.85rem; font-size: 0.825rem; width: auto;">
             <option value="">All Categories</option>
             <?php foreach ($categories as $cat): ?>
               <option value="<?= $cat['id'] ?>" <?= $filterCategory == $cat['id'] ? 'selected' : '' ?>>
@@ -75,8 +71,11 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
           </select>
         </form>
 
-        <a href="<?= View::url('/admin/gallery/upload.php') ?>" class="admin-btn admin-btn-primary">
-          + Upload New Media
+        <a href="<?= View::url('/admin/gallery/categories.php') ?>" class="admin-btn admin-btn-secondary">
+          Manage Categories
+        </a>
+        <a href="<?= View::url('/admin/gallery/upload.php') ?>" class="admin-btn admin-btn-gold" style="font-weight: 600;">
+          + Add New Event
         </a>
       </div>
     </div>
@@ -85,84 +84,74 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
       <table class="admin-table">
         <thead>
           <tr>
-            <th style="width: 80px;">Thumbnail</th>
-            <th>Media Title & Category</th>
-            <th>Type</th>
-            <th>Class</th>
-            <th>Featured</th>
+            <th style="width: 80px;">Cover</th>
+            <th>Event Title &amp; Category</th>
+            <th>Date &amp; Location</th>
+            <th>Photos</th>
             <th>Status</th>
             <th style="text-align: right;">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <?php if (!empty($mediaList)): ?>
-            <?php foreach ($mediaList as $item): ?>
+          <?php if (!empty($eventsList)): ?>
+            <?php foreach ($eventsList as $ev): ?>
               <tr>
                 <td>
-                  <?php if ($item['media_type'] === 'video'): ?>
-                    <div style="width: 56px; height: 42px; background: #1D1D1F; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 0.65rem;">
-                      VIDEO
-                    </div>
-                  <?php else: ?>
-                    <img src="<?= View::asset($item['file_path']) ?>" alt="" width="56" height="42" style="object-fit: cover; border-radius: var(--radius-xs);">
-                  <?php endif; ?>
-                </td>
-                <td>
-                  <strong><?= View::e($item['title']) ?></strong>
-                  <div style="font-size: 0.75rem; color: #718096;">
-                    Category: <?= View::e($item['category_name'] ?? 'Uncategorized') ?>
+                  <div style="width: 68px; height: 48px; border-radius: var(--radius-sm); overflow: hidden; background: #121214;">
+                    <?php if (!empty($ev['cover_image'])): ?>
+                      <img src="<?= View::asset($ev['cover_image']) ?>" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php else: ?>
+                      <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: #718096;">No Cover</div>
+                    <?php endif; ?>
                   </div>
                 </td>
+
                 <td>
-                  <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 600; color: #4A5568;">
-                    <?= $item['media_type'] ?>
-                  </span>
+                  <strong style="color: #1A202C; font-size: 0.95rem;"><?= View::e($ev['title']) ?></strong>
+                  <div style="font-size: 0.78rem; color: #718096; margin-top: 2px;">
+                    <?= View::e($ev['category_name'] ?? 'Uncategorized') ?>
+                  </div>
                 </td>
+
                 <td>
-                  <?php if (!empty($item['is_concept'])): ?>
-                    <span class="status-pill status-draft">Concept</span>
-                  <?php else: ?>
-                    <span class="status-pill status-completed">Authentic</span>
+                  <span style="font-size: 0.85rem; color: #2D3748;">
+                    <?= !empty($ev['event_date']) ? View::formatDate($ev['event_date']) : 'Not Specified' ?>
+                  </span>
+                  <?php if (!empty($ev['location'])): ?>
+                    <div style="font-size: 0.75rem; color: #718096; margin-top: 1px;">
+                      <?= View::e($ev['location']) ?>
+                    </div>
                   <?php endif; ?>
                 </td>
+
+                <td>
+                  <span class="status-pill" style="background: #EDF2F7; color: #2D3748; font-weight: 600;">
+                    <?= (int)$ev['photo_count'] ?> Photos
+                  </span>
+                </td>
+
                 <td>
                   <form action="<?= View::url('/admin/gallery/index.php') ?>" method="POST" style="display: inline;">
                     <?= Csrf::field() ?>
-                    <input type="hidden" name="action" value="toggle_featured">
-                    <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                    <button type="submit" class="admin-btn admin-btn-secondary admin-btn-sm" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;">
-                      <?= !empty($item['is_featured']) ? '★ Featured' : '☆ Normal' ?>
+                    <input type="hidden" name="action" value="toggle_publish">
+                    <input type="hidden" name="id" value="<?= $ev['id'] ?>">
+                    <button type="submit" class="status-pill <?= !empty($ev['is_published']) ? 'status-active' : 'status-inactive' ?>" style="cursor: pointer; border: none;" title="Click to toggle visibility">
+                      <?= !empty($ev['is_published']) ? 'Published' : 'Hidden / Draft' ?>
                     </button>
                   </form>
                 </td>
-                <td>
-                  <span class="status-pill <?= !empty($item['is_published']) ? 'status-published' : 'status-draft' ?>">
-                    <?= !empty($item['is_published']) ? 'Published' : 'Hidden' ?>
-                  </span>
-                </td>
-                <td style="text-align: right;">
-                  <div style="display: inline-flex; gap: 0.5rem;">
-                    <!-- Toggle Publish -->
-                    <form action="<?= View::url('/admin/gallery/index.php') ?>" method="POST" style="display: inline;">
-                      <?= Csrf::field() ?>
-                      <input type="hidden" name="action" value="toggle_publish">
-                      <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                      <button type="submit" class="admin-btn admin-btn-secondary admin-btn-sm">
-                        <?= !empty($item['is_published']) ? 'Unpublish' : 'Publish' ?>
-                      </button>
-                    </form>
 
-                    <!-- Edit -->
-                    <a href="<?= View::url('/admin/gallery/edit.php?id=' . $item['id']) ?>" class="admin-btn admin-btn-secondary admin-btn-sm">
-                      Edit
+                <td style="text-align: right; white-space: nowrap;">
+                  <div style="display: flex; gap: 0.4rem; justify-content: flex-end;">
+                    <a href="<?= View::url('/admin/gallery/edit.php?id=' . $ev['id']) ?>" class="admin-btn admin-btn-secondary admin-btn-sm">
+                      Edit &amp; Photos
                     </a>
 
-                    <!-- Delete -->
-                    <form action="<?= View::url('/admin/gallery/index.php') ?>" method="POST" style="display: inline;">
+                    <form action="<?= View::url('/admin/gallery/index.php') ?>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete &quot;<?= addslashes(View::e($ev['title'])) ?>&quot; and all its photographs? This action cannot be undone.');">
                       <?= Csrf::field() ?>
                       <input type="hidden" name="action" value="delete">
-                      <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                      <button type="submit" class="admin-btn admin-btn-danger admin-btn-sm" data-confirm="Are you sure you want to permanently delete this media item?">
+                      <input type="hidden" name="id" value="<?= $ev['id'] ?>">
+                      <button type="submit" class="admin-btn admin-btn-danger admin-btn-sm" title="Delete Event">
                         Delete
                       </button>
                     </form>
@@ -172,8 +161,8 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
             <?php endforeach; ?>
           <?php else: ?>
             <tr>
-              <td colspan="7" style="text-align: center; color: #718096; padding: 2rem;">
-                No media records found in this category.
+              <td colspan="6" style="text-align: center; padding: 2.5rem 1rem; color: #718096;">
+                No events found matching your filter. Click <strong>&quot;+ Add New Event &amp; Upload Photos&quot;</strong> above to create your first event!
               </td>
             </tr>
           <?php endif; ?>

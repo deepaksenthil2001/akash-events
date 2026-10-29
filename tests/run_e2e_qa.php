@@ -134,7 +134,7 @@ echo "\n";
 echo "[4] Testing Contact Form, CSRF Token & Enquiry Submission...\n";
 $resContact = httpGet($baseUrl . '/contact.php');
 report('Contact Page HTTP 200', strpos($resContact['headers'][0] ?? '', '200') !== false);
-report('Official Hosur Address Verified', strpos($resContact['body'], 'Bhavani Palace') !== false);
+report('Official Hosur Address Verified', strpos($resContact['body'], 'Naligabetta Agraharam') !== false || strpos($resContact['body'], 'Bhavani palace') !== false);
 report('Verified Primary Phone Displayed', strpos($resContact['body'], '93442 73433') !== false);
 
 $sessionCookies = extractCookies($resContact['headers']);

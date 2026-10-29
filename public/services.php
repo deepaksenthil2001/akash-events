@@ -23,9 +23,9 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
 
     <section class="services-page-header">
       <span class="section-eyebrow">Our Disciplines</span>
-      <h1 class="section-title">Crafting Unforgettable Experiences</h1>
+      <h1 class="section-title"><?= View::e(View::setting('services_header_title', 'Crafting Unforgettable Experiences')) ?></h1>
       <p class="section-description">
-        From sacred mandapams to contemporary illuminated stages, explore our full spectrum of event styling and production services across Hosur and Bangalore.
+        <?= View::e(View::setting('services_header_subtitle', 'From sacred mandapams to contemporary illuminated stages, explore our full spectrum of event styling and production services across Hosur and Bangalore.')) ?>
       </p>
     </section>
 
@@ -75,7 +75,7 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
     </div>
 
     <!-- Call to action -->
-    <section class="cta-banner" style="margin-bottom: var(--space-5xl);">
+    <section class="cta-banner">
       <h2 class="cta-headline">Have a Custom Event Concept in Mind?</h2>
       <p class="cta-subtext">
         Every love story and milestone is unique. Tell us your vision, colors, and venue, and we will bring it to life.

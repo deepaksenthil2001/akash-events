@@ -75,20 +75,20 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
     <div class="site-container">
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-number">10<span>+</span></div>
-          <div class="stat-label">Years of Craftsmanship</div>
+          <div class="stat-number"><?= View::e(View::setting('stat_1_val', '10+')) ?></div>
+          <div class="stat-label"><?= View::e(View::setting('stat_1_label', 'Years of Craftsmanship')) ?></div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">1,200<span>+</span></div>
-          <div class="stat-label">Celebrations Crafted</div>
+          <div class="stat-number"><?= View::e(View::setting('stat_2_val', '1,200+')) ?></div>
+          <div class="stat-label"><?= View::e(View::setting('stat_2_label', 'Celebrations Crafted')) ?></div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">100<span>%</span></div>
-          <div class="stat-label">Bespoke Artistry</div>
+          <div class="stat-number"><?= View::e(View::setting('stat_3_val', '100%')) ?></div>
+          <div class="stat-label"><?= View::e(View::setting('stat_3_label', 'Bespoke Artistry')) ?></div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">8<span>+</span></div>
-          <div class="stat-label">Core Event Domains</div>
+          <div class="stat-number"><?= View::e(View::setting('stat_4_val', '8+')) ?></div>
+          <div class="stat-label"><?= View::e(View::setting('stat_4_label', 'Core Event Domains')) ?></div>
         </div>
       </div>
     </div>
@@ -102,13 +102,13 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
           <img src="<?= View::asset('assets/images/client/image-013.jpg') ?>" alt="Akash Event Management Champagne Gold Stage Architecture" loading="lazy">
         </div>
         <div class="story-content">
-          <span class="section-eyebrow">The Craft of Celebration</span>
-          <h2 class="section-title">Elevating Rituals into Living Works of Art.</h2>
+          <span class="section-eyebrow"><?= View::e(View::setting('home_intro_eyebrow', 'The Craft of Celebration')) ?></span>
+          <h2 class="section-title"><?= View::e(View::setting('home_intro_title', 'Elevating Rituals into Living Works of Art.')) ?></h2>
           <p>
-            Founded by master decorator <strong>P. Manobalan</strong>, Akash Event Management has spent over a decade curating extraordinary celebration spaces across Hosur, Krishnagiri, and Bangalore.
+            <?= nl2br(View::e(View::setting('home_intro_p1', 'Founded by master decorator P. Manobalan, Akash Event Management has spent over a decade curating extraordinary celebration spaces across Hosur, Krishnagiri, and Bangalore.'))) ?>
           </p>
           <p>
-            Whether designing a monumental floral mandapam, an intimate champagne-gold engagement stage, or a heartwarming naming ceremony, we harmonize fresh floral fragrances, architectural silhouettes, and warm ambient lighting.
+            <?= nl2br(View::e(View::setting('home_intro_p2', 'Whether designing a monumental floral mandapam, an intimate champagne-gold engagement stage, or a heartwarming naming ceremony, we harmonize fresh floral fragrances, architectural silhouettes, and warm ambient lighting.'))) ?>
           </p>
           <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
             <a href="<?= View::url('/about.php') ?>" class="btn btn-secondary">Our Full Story</a>
@@ -214,13 +214,13 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
     <div class="site-container">
       <div class="story-grid">
         <div class="story-content">
-          <span class="section-eyebrow">Precision & Execution</span>
-          <h2 class="section-title">From Empty Hall to Cinematic Wonder.</h2>
+          <span class="section-eyebrow"><?= View::e(View::setting('home_story_eyebrow', 'Precision & Execution')) ?></span>
+          <h2 class="section-title"><?= View::e(View::setting('home_story_title', 'From Empty Hall to Cinematic Wonder.')) ?></h2>
           <p>
-            An empty convention hall or outdoor lawn is a blank canvas. Our process begins with understanding the lighting angles, sightlines, and ceremonial flow.
+            <?= nl2br(View::e(View::setting('home_story_p1', 'An empty convention hall or outdoor lawn is a blank canvas. Our process begins with understanding the lighting angles, sightlines, and ceremonial flow.'))) ?>
           </p>
           <p>
-            Our master floral teams arrive hours ahead to hand-wire fresh roses, jasmines, and lilies. Spotlights and chandeliers are meticulously positioned to eliminate shadows, creating the dream backdrop for your wedding photography.
+            <?= nl2br(View::e(View::setting('home_story_p2', 'Our master floral teams arrive hours ahead to hand-wire fresh roses, jasmines, and lilies. Spotlights and chandeliers are meticulously positioned to eliminate shadows, creating the dream backdrop for your wedding photography.'))) ?>
           </p>
           <div style="margin-top: 1.5rem;">
             <a href="<?= View::url('/contact.php') ?>" class="btn btn-primary">Schedule a Consultation</a>
