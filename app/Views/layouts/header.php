@@ -57,7 +57,7 @@ $pageCss = $pageCss ?? [];
       
       <!-- Brand Logo -->
       <a href="<?= View::url('/index.php') ?>" class="brand-link" aria-label="Akash Event Management Home">
-        <img src="<?= View::asset('assets/images/brand/logo-header.png') ?>" alt="Akash Event Management MHA Emblem" class="brand-emblem" width="84" height="48">
+        <img src="<?= View::asset('assets/images/brand/logo-header.png') ?>" alt="Akash Event Management MHA Emblem" class="brand-emblem" width="65" height="64">
         <div class="brand-meta">
           <span class="brand-name">Akash Event Management</span>
           <span class="brand-subtitle">Floral Artistry &bull; 10+ Yrs</span>

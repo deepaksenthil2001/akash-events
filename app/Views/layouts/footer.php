@@ -51,7 +51,7 @@ $pageJs = $pageJs ?? [];
         <div class="footer-col footer-col-brand">
           <div class="footer-brand-header">
             <a href="<?= View::url('/index.php') ?>" class="footer-brand-link" aria-label="Akash Event Management Home">
-              <img src="<?= View::asset('assets/images/brand/logo-footer.png') ?>" alt="Akash Event Management Emblem" class="footer-brand-logo" width="112" height="64" loading="lazy">
+              <img src="<?= View::asset('assets/images/brand/logo-footer.png') ?>" alt="Akash Event Management Emblem" class="footer-brand-logo" width="65" height="64" loading="lazy">
               <div class="footer-brand-text">
                 <span class="footer-brand-name">Akash Event Management</span>
                 <span class="footer-brand-founder">P. Manobalan &bull; 10+ Years</span>

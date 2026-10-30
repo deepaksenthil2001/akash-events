@@ -52,7 +52,7 @@ img, video {
  * ------------------------------------------------------------- */
 @media (max-width: 1024px) {
   .site-header-inner {
-    height: 64px;
+    height: 72px;
   }
 
   .desktop-nav {
@@ -77,7 +77,7 @@ img, video {
   }
 
   .mobile-drawer {
-    top: 64px;
+    top: 72px;
   }
 
   /* Grids on Tablet */
@@ -130,13 +130,13 @@ img, video {
 
   /* Header Branding */
   .brand-emblem {
-    height: 40px !important;
+    height: 52px !important;
     width: auto !important;
-    max-width: 80px !important;
+    max-width: 100px !important;
   }
 
   .brand-name {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
@@ -406,15 +406,15 @@ img, video {
   }
 
   .site-header-inner {
-    height: 60px;
+    height: 68px;
   }
 
   .mobile-drawer {
-    top: 60px;
+    top: 68px;
   }
 
   .brand-name {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   .brand-subtitle {
@@ -422,8 +422,8 @@ img, video {
   }
 
   .brand-emblem {
-    height: 36px !important;
-    max-width: 72px !important;
+    height: 48px !important;
+    max-width: 90px !important;
   }
 
   .section-header {
@@ -512,12 +512,12 @@ img, video {
   }
 
   .brand-name {
-    font-size: 0.825rem;
+    font-size: 0.875rem;
   }
 
   .brand-emblem {
-    height: 32px !important;
-    max-width: 64px !important;
+    height: 42px !important;
+    max-width: 80px !important;
   }
 
   /* Footer safely stacks to single column on extreme narrow screens */

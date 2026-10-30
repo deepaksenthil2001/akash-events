@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="admin-login-box">
       
       <div style="text-align: center; margin-bottom: 2rem;">
-        <img src="<?= View::asset('assets/images/brand/logo-admin.png') ?>" alt="Akash Event Management" style="height: 52px; width: auto; object-fit: contain; margin-bottom: 1rem; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));">
+        <img src="<?= View::asset('assets/images/brand/logo.png') ?>" alt="Akash Event Management" style="height: 72px; width: auto; object-fit: contain; border-radius: 10px; margin-bottom: 1rem; border: 1px solid rgba(197, 160, 89, 0.4); box-shadow: 0 4px 16px rgba(71, 2, 16, 0.25);">
         <h1 style="font-size: 1.5rem; font-weight: 700; color: #0F172A; margin-bottom: 0.25rem;">Akash Events</h1>
         <p style="font-size: 0.85rem; color: #64748B;">Client Management &amp; Control Portal</p>
       </div>

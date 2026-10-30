@@ -28,7 +28,7 @@ $currentAdminNav = $currentAdminNav ?? 'dashboard';
     <!-- Sidebar -->
     <aside class="admin-sidebar">
       <div class="admin-sidebar-brand">
-        <img src="<?= View::asset('assets/images/brand/logo-admin.png') ?>" alt="Akash Event Management" width="64" height="36" style="object-fit: contain;">
+        <img src="<?= View::asset('assets/images/brand/logo-admin.png') ?>" alt="Akash Event Management" width="46" height="45" style="object-fit: contain; border-radius: 6px; border: 1px solid rgba(197, 160, 89, 0.35);">
         <div>
           <div class="admin-brand-title">Akash Events</div>
           <div class="admin-brand-badge">Management Portal</div>
