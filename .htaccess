@@ -1,22 +1,35 @@
-# Akash Event Management - Apache / XAMPP Configuration
-# Protect sensitive application folders and configuration files
+# ==============================================================
+# Akash Event Management - Apache / LiteSpeed (Hostinger) Configuration
+# ==============================================================
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
     # Block direct web access to sensitive directories and configuration files
-    RewriteRule ^(app|storage|database|scripts|tests)/ - [F,L,NC]
+    RewriteRule ^(app|storage|database|scripts|tests|scratch)/ - [F,L,NC]
     RewriteRule ^(\.env|\.git|composer\.) - [F,L,NC]
 
-    # If requested resource exists in public/ directory (e.g., assets, images, CSS, JS)
+    # Direct static routes for public assets
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+    RewriteRule ^uploads/(.*)$ public/uploads/$1 [L]
+    RewriteRule ^favicon\.png$ public/favicon.png [L]
+    RewriteRule ^robots\.txt$ public/robots.txt [L]
+    RewriteRule ^sitemap\.xml$ public/sitemap.xml [L]
+
+    # Fallback to public folder if asset exists there
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{DOCUMENT_ROOT}/public/%{REQUEST_URI} -f
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
-# Prevent directory browsing
+# Prevent directory listing
 Options -Indexes
 
-# Set UTF-8 encoding
+# Set default charset
 AddDefaultCharset UTF-8
+
+# Compression for fast loading
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>

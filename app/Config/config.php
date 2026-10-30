@@ -47,12 +47,12 @@ return [
     ],
 
     'database' => [
-        'driver' => 'mysql', // 'mysql' or 'sqlite'
-        'host' => '127.0.0.1',
-        'port' => 3306,
-        'database' => 'akash_event_management',
-        'username' => 'root',
-        'password' => '',
+        'driver' => getenv('DB_DRIVER') ?: 'mysql', // 'mysql' or 'sqlite'
+        'host' => getenv('DB_HOST') ?: 'localhost', // 'localhost' for Hostinger or '127.0.0.1'
+        'port' => (int) (getenv('DB_PORT') ?: 3306),
+        'database' => getenv('DB_NAME') ?: 'akash_event_management',
+        'username' => getenv('DB_USER') ?: 'root',
+        'password' => getenv('DB_PASS') !== false ? getenv('DB_PASS') : '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
         'options' => [

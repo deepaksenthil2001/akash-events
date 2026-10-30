@@ -2,5 +2,8 @@
 storage/backups/
 scratch/
 *.log
+*.zip
+.env
 .DS_Store
 Thumbs.db
+
