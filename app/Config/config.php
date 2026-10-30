@@ -50,9 +50,9 @@ return [
         'driver' => getenv('DB_DRIVER') ?: 'mysql', // 'mysql' or 'sqlite'
         'host' => getenv('DB_HOST') ?: 'localhost', // 'localhost' for Hostinger or '127.0.0.1'
         'port' => (int) (getenv('DB_PORT') ?: 3306),
-        'database' => getenv('DB_NAME') ?: 'akash_event_management',
-        'username' => getenv('DB_USER') ?: 'root',
-        'password' => getenv('DB_PASS') !== false ? getenv('DB_PASS') : '',
+        'database' => getenv('DB_NAME') ?: 'u663442222_akash',
+        'username' => getenv('DB_USER') ?: 'u663442222_akash',
+        'password' => getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'AkashHostinger2026!',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
         'options' => [

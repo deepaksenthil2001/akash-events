@@ -5,3 +5,4 @@ Write-Host "Total entries in ZIP:" $entries.Count
 Write-Host "`nSample Key Files:"
 $entries | Where-Object { $_ -match '^(index\.php|\.htaccess|app/Config/config\.php|database/akash_event_management\.sql|admin/login\.php|public/index\.php|public/assets/images/brand/logo\.png)' }
 $zip.Dispose()
+
