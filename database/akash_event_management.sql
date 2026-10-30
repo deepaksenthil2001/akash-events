@@ -116,7 +116,7 @@ CREATE TABLE `services` (
   `full_description` TEXT NOT NULL,
   `cover_image` VARCHAR(255) NOT NULL,
   `banner_image` VARCHAR(255) NULL,
-  `features_list` JSON NULL,
+  `features_list` TEXT NULL,
   `display_order` INT NOT NULL DEFAULT 0,
   `is_published` TINYINT(1) NOT NULL DEFAULT 1,
   `is_featured` TINYINT(1) NOT NULL DEFAULT 0,
