@@ -18,8 +18,8 @@ class Auth
         }
 
         $user = $db->fetch(
-            "SELECT * FROM admins WHERE username = :ident OR email = :ident LIMIT 1",
-            [':ident' => $usernameOrEmail]
+            "SELECT * FROM admins WHERE username = :u OR email = :e LIMIT 1",
+            [':u' => $usernameOrEmail, ':e' => $usernameOrEmail]
         );
 
         if (!$user) {
