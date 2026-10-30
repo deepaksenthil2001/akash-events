@@ -101,6 +101,7 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
               Send Booking Enquiry
             </a>
             <a href="https://wa.me/<?= $whatsapp ?>?text=<?= urlencode('Hello P. Manobalan, I am interested in booking ' . $service['title'] . '.') ?>" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width: 100%;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.1c-.24.68-1.2 1.28-1.83 1.34-.48.05-1.1.07-3.17-.79-2.65-1.1-4.36-3.79-4.49-3.96-.13-.18-1.07-1.42-1.07-2.72 0-1.29.67-1.93.92-2.19.24-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.39-.06.61.47.23.55.78 1.9.85 2.04.07.15.11.32.02.5-.09.18-.14.29-.28.45-.14.16-.3.35-.43.48-.14.15-.29.31-.13.58.17.28.74 1.22 1.6 1.98 1.1.98 2.03 1.28 2.31 1.43.29.14.45.12.62-.07.17-.2.72-.84.91-1.13.2-.29.39-.24.66-.14.27.1 1.72.81 2.02.96.29.15.49.22.56.34.07.13.07.72-.17 1.4z"/></svg>
               Inquire via WhatsApp
             </a>
             <a href="tel:<?= preg_replace('/[^\d+]/', '', $phonePrimary) ?>" class="btn btn-secondary" style="width: 100%;">

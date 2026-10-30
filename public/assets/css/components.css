@@ -282,15 +282,35 @@
 }
 
 .btn-whatsapp {
-  background-color: #25D366;
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.25);
+  background-color: var(--color-whatsapp);
+  background: linear-gradient(135deg, #1E8254 0%, #156641 100%);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(19, 94, 59, 0.3);
+  box-shadow: 0 3px 10px rgba(21, 102, 65, 0.2);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .btn-whatsapp:hover {
-  background-color: #20BD5A;
-  color: #FFFFFF;
+  background-color: var(--color-whatsapp-hover);
+  background: linear-gradient(135deg, #166D44 0%, #0F5333 100%);
+  color: #FFFFFF !important;
   transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(21, 102, 65, 0.28);
+}
+
+.btn-whatsapp:active {
+  transform: translateY(0);
+}
+
+.btn-whatsapp svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+  flex-shrink: 0;
 }
 
 .btn-sm {
@@ -894,14 +914,16 @@
 }
 
 .ios-bar-whatsapp {
-  background: #25D366;
-  color: #FFFFFF;
-  border: 1px solid rgba(37, 211, 102, 0.2);
-  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+  background-color: var(--color-whatsapp);
+  background: linear-gradient(135deg, #1E8254 0%, #156641 100%);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(19, 94, 59, 0.25);
+  box-shadow: 0 2px 8px rgba(21, 102, 65, 0.2);
 }
 
 .ios-bar-whatsapp:hover {
-  background: #20BA5A;
+  background-color: var(--color-whatsapp-hover);
+  background: linear-gradient(135deg, #166D44 0%, #0F5333 100%);
 }
 
 .ios-bar-primary {

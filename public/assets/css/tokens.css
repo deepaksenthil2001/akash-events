@@ -37,6 +37,12 @@
   --color-botanical-light: #3D6155;
   --color-botanical-soft: #EAEFEA;
 
+  /* Refined Professional WhatsApp Palette (Calm Deep Emerald) */
+  --color-whatsapp: #1B7A4E;
+  --color-whatsapp-hover: #135E3B;
+  --color-whatsapp-deep: #0D492D;
+  --color-whatsapp-glow: rgba(27, 122, 78, 0.22);
+
   --color-border: rgba(0, 0, 0, 0.08);
   --color-border-subtle: rgba(0, 0, 0, 0.04);
   --color-border-dark: rgba(255, 255, 255, 0.12);

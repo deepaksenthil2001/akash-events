@@ -708,12 +708,17 @@ body.admin-body {
 }
 
 .admin-btn-whatsapp {
-  background-color: #34C759;
+  background-color: #1B7A4E;
+  background: linear-gradient(135deg, #1E8254 0%, #156641 100%);
   color: #FFFFFF;
+  border: 1px solid rgba(19, 94, 59, 0.25);
+  box-shadow: 0 2px 6px rgba(21, 102, 65, 0.2);
 }
 
 .admin-btn-whatsapp:hover {
-  background-color: #2DB84D;
+  background-color: #14613B;
+  background: linear-gradient(135deg, #166D44 0%, #0F5333 100%);
+  color: #FFFFFF;
 }
 
 .admin-btn-sm {

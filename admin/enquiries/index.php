@@ -117,7 +117,7 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
                     <?= View::e($enq['phone']) ?>
                   </a>
                   <div style="margin-top: 2px;">
-                    <a href="https://wa.me/<?= preg_replace('/[^\d]/', '', $enq['phone']) ?>?text=<?= urlencode('Hello ' . $enq['customer_name'] . ', this is P. Manobalan from Akash Event Management regarding your event enquiry.') ?>" target="_blank" rel="noopener noreferrer" style="font-size: 0.72rem; color: #2E7D32; font-weight: 500;">
+                    <a href="https://wa.me/<?= preg_replace('/[^\d]/', '', $enq['phone']) ?>?text=<?= urlencode('Hello ' . $enq['customer_name'] . ', this is P. Manobalan from Akash Event Management regarding your event enquiry.') ?>" target="_blank" rel="noopener noreferrer" style="font-size: 0.72rem; color: #1B7A4E; font-weight: 600;">
                       WhatsApp &rarr;
                     </a>
                   </div>
