@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Gallery;
 use App\Models\Event;
 use App\Models\Enquiry;
+use App\Models\Review;
 
 $pageTitle = 'Dashboard Executive Overview | Akash Event Management Admin';
 $pageHeaderTitle = 'Control Center Dashboard';
@@ -22,6 +23,8 @@ $publishedServices = Service::count(true);
 $totalImages = Gallery::count(false, 'image');
 $totalEnquiries = Enquiry::count('all');
 $newEnquiries = Enquiry::count('new');
+$reviewStats = Review::getStats();
+$totalReviews = count(Review::getAll());
 
 $recentEnquiries = Enquiry::getRecent(6);
 $recentEvents = Event::getAll(null, null, false, 4, 0);
@@ -54,6 +57,12 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
       <div class="metric-value" style="color: #0071E3;"><?= $newEnquiries ?></div>
       <div class="metric-sub">Awaiting follow-up</div>
     </div>
+
+    <div class="metric-card">
+      <div class="metric-label">Google Reviews</div>
+      <div class="metric-value" style="color: #D97706;">★ <?= number_format($reviewStats['average'], 1) ?></div>
+      <div class="metric-sub"><?= $totalReviews ?> reviews recorded</div>
+    </div>
   </div>
 
   <!-- Quick Action Banner -->
@@ -63,7 +72,10 @@ require APP_ROOT . '/app/Views/layouts/admin_header.php';
       <p style="font-size: 0.8125rem; color: var(--admin-text-secondary); margin: 0;">Add new completed events, upload stage photos, or adjust business contact information.</p>
     </div>
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-      <a href="<?= View::url('/admin/gallery/upload.php') ?>" class="admin-btn admin-btn-gold">
+      <a href="<?= View::url('/admin/reviews/index.php') ?>" class="admin-btn admin-btn-gold">
+        ★ Manage Reviews
+      </a>
+      <a href="<?= View::url('/admin/gallery/upload.php') ?>" class="admin-btn admin-btn-secondary">
         + Add New Event
       </a>
       <a href="<?= View::url('/admin/services/create.php') ?>" class="admin-btn admin-btn-secondary">

@@ -4,4 +4,4 @@ Disallow: /admin/
 Disallow: /storage/
 Disallow: /app/
 
-Sitemap: /sitemap.xml
+Sitemap: https://akasheventmanagementhosur.in/sitemap.xml

@@ -18,7 +18,15 @@ $pageCss = $pageCss ?? [];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= View::e($pageTitle) ?></title>
   <meta name="description" content="<?= View::e($pageDescription) ?>">
-  <meta name="theme-color" content="#FBF9F5">
+  <meta name="keywords" content="Event Management in Hosur, Wedding Stage Decoration Hosur, Flower Decoration Hosur, Stage Decorators near me, Reception Mandapam Hosur, Best Event Planners Bangalore, P. Manobalan, Traditional Seemantham Decor Hosur, Baby Shower Decoration Hosur, Birthday Party Organizers Hosur, Tent House Hosur, Catering Setup Hosur">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="author" content="Akash Event Management">
+  <meta name="geo.region" content="IN-TN">
+  <meta name="geo.placename" content="Hosur">
+  <meta name="geo.position" content="12.7409;77.8253">
+  <meta name="ICBM" content="12.7409, 77.8253">
+  <link rel="canonical" href="https://akasheventmanagementhosur.in<?= htmlspecialchars(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), ENT_QUOTES, 'UTF-8') ?>">
+  <meta name="theme-color" content="#460211">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Akash Events">
@@ -29,9 +37,67 @@ $pageCss = $pageCss ?? [];
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Akash Event Management">
   <meta property="og:title" content="<?= View::e($pageTitle) ?>">
   <meta property="og:description" content="<?= View::e($pageDescription) ?>">
-  <meta property="og:image" content="<?= View::asset('assets/images/hero/hero-desktop.jpg') ?>">
+  <meta property="og:image" content="https://akasheventmanagementhosur.in<?= View::asset('assets/images/brand/logo.png') ?>">
+  <meta property="og:url" content="https://akasheventmanagementhosur.in<?= htmlspecialchars(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), ENT_QUOTES, 'UTF-8') ?>">
+
+  <!-- Google Structured Data (LocalBusiness Schema for Search Ranking) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "LocalBusiness", "EventVenue"],
+    "name": "Akash Event Management",
+    "alternateName": "Akash Events Hosur",
+    "image": "https://akasheventmanagementhosur.in<?= View::asset('assets/images/brand/logo.png') ?>",
+    "@id": "https://akasheventmanagementhosur.in",
+    "url": "https://akasheventmanagementhosur.in",
+    "telephone": "+919344273433",
+    "priceRange": "₹₹",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "12, Gokul Nagar, Naligabetta Agraharam, Bhavani palace backside",
+      "addressLocality": "Hosur",
+      "addressRegion": "Tamil Nadu",
+      "postalCode": "635109",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 12.7409,
+      "longitude": 77.8253
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "P. Manobalan",
+      "jobTitle": "Master Floral Decorator & Event Architect"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Hosur" },
+      { "@type": "City", "name": "Bangalore" },
+      { "@type": "City", "name": "Krishnagiri" },
+      { "@type": "City", "name": "Dharmapuri" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/akasheventmanagement",
+      "https://share.google/nUP5Exqa3K1doUEfd"
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "08:00",
+      "closes": "22:00"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "48",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  }
+  </script>
 
   <!-- Google Fonts: Plus Jakarta Sans (Apple-inspired clarity) & Cinzel (Subtle Royal Gold Accents) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -8,6 +8,7 @@ require_once __DIR__ . '/../app/bootstrap.php';
 use App\Helpers\View;
 use App\Models\Service;
 use App\Models\Gallery;
+use App\Models\Review;
 
 $pageTitle = View::setting('meta_title_default', 'Akash Event Management | Premium Stage Decoration & Event Planning');
 $pageDescription = View::setting('meta_description_default', 'Creating moments worth remembering. Premium wedding stages, floral decoration, mandapams, baby showers, and birthday setups in Hosur & Bangalore.');
@@ -17,6 +18,8 @@ $pageCss = ['assets/css/pages/home.css'];
 // Retrieve dynamic database content
 $featuredServices = Service::getFeatured(6);
 $featuredGallery = Gallery::getFeatured(6);
+$reviews = Review::getPublished(6);
+$reviewStats = Review::getStats();
 
 $heroEyebrow = View::setting('hero_eyebrow', 'Hosur & Bangalore | 10+ Years of Celebrations');
 $heroHeadline = View::setting('hero_headline', 'Creating Moments Worth Remembering.');
@@ -235,7 +238,105 @@ require_once APP_ROOT . '/app/Views/layouts/header.php';
     </div>
   </section>
 
-  <!-- 7. Call To Action Banner -->
+  <!-- 7. Verified Google Reviews Showcase -->
+  <section class="reviews-section" id="reviews">
+    <div class="site-container">
+      <div class="section-header text-center" style="margin-bottom: var(--space-2xl);">
+        <span class="section-eyebrow">Client Experiences & Trust</span>
+        <h2 class="section-title">Loved by Families Across Hosur & Bangalore</h2>
+        <p class="section-description">
+          Authentic feedback from families who entrusted their weddings, receptions, and life milestones to our craftsmanship.
+        </p>
+      </div>
+
+      <!-- Google Trust Bar -->
+      <div class="google-trust-bar">
+        <div class="google-trust-left">
+          <div class="google-icon-wrapper" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+            </svg>
+          </div>
+          <div class="google-trust-info">
+            <div class="google-stars-row">
+              <span class="google-stars-icons" aria-label="5 out of 5 stars">★★★★★</span>
+              <span class="google-rating-score"><?= number_format($reviewStats['average'], 1) ?></span>
+            </div>
+            <p class="google-trust-subtext">
+              Based on <strong><?= (int) $reviewStats['total'] ?>+ Verified Reviews</strong> on Google Business Profile
+            </p>
+          </div>
+        </div>
+
+        <a href="<?= View::e(View::setting('google_business_url', 'https://share.google/nUP5Exqa3K1doUEfd')) ?>" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="btn-google-review">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+          <span>Write a Review on Google</span>
+        </a>
+      </div>
+
+      <!-- Reviews Grid -->
+      <div class="reviews-grid">
+        <?php foreach ($reviews as $rev): 
+          $initial = mb_substr($rev['customer_name'], 0, 1, 'UTF-8');
+        ?>
+          <div class="review-card">
+            <div>
+              <div class="review-card-header">
+                <div class="review-author-wrap">
+                  <div class="review-avatar" aria-hidden="true"><?= View::e($initial) ?></div>
+                  <div class="review-author-meta">
+                    <h4><?= View::e($rev['customer_name']) ?></h4>
+                    <span class="review-verified-badge">
+                      <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                      Verified Event
+                    </span>
+                  </div>
+                </div>
+                <div class="review-google-badge" title="Verified Google Review">
+                  <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="review-card-stars">
+                <span class="review-stars-list" aria-label="<?= (int)$rev['rating'] ?> stars">
+                  <?= str_repeat('★', (int)$rev['rating']) ?>
+                </span>
+                <?php if (!empty($rev['event_type'])): ?>
+                  <span class="review-event-tag"><?= View::e($rev['event_type']) ?></span>
+                <?php endif; ?>
+              </div>
+
+              <p class="review-card-body">
+                <?= nl2br(View::e($rev['review_text'])) ?>
+              </p>
+            </div>
+
+            <div class="review-card-footer">
+              <span><?= !empty($rev['review_date']) ? date('M Y', strtotime($rev['review_date'])) : 'Recent Client' ?></span>
+              <span>Posted on Google</span>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Call To Action Banner -->
   <section class="site-container">
     <div class="cta-banner">
       <h2 class="cta-headline">Let's Plan Your Unforgettable Celebration</h2>

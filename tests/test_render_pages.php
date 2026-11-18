@@ -21,6 +21,7 @@ $pages = [
     'Admin Hero & Content' => '/admin/settings/hero.php',
     'Admin About Content' => '/admin/settings/about.php',
     'Admin User Management' => '/admin/users/index.php',
+    'Admin Google Reviews' => '/admin/reviews/index.php',
 ];
 
 echo "==========================================\n";

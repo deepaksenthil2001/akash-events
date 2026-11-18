@@ -86,6 +86,13 @@ $currentAdminNav = $currentAdminNav ?? 'dashboard';
           <?php endif; ?>
         </a>
 
+        <a href="<?= View::url('/admin/reviews/index.php') ?>" class="admin-nav-item <?= $currentAdminNav === 'reviews' ? 'active' : '' ?>">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          Google Reviews
+        </a>
+
         <div style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #718096; padding: 1.25rem 1rem 0.25rem 1rem;">
           Website Details
         </div>

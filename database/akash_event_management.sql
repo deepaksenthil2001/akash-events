@@ -332,4 +332,34 @@ CREATE TABLE `login_attempts` (
   INDEX `idx_attempts_ip_time` (`ip_address`, `attempted_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------------
+-- Table: `reviews`
+-- --------------------------------------------------------------
+DROP TABLE IF EXISTS `reviews`;
+CREATE TABLE `reviews` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customer_name` VARCHAR(100) NOT NULL,
+  `rating` TINYINT UNSIGNED NOT NULL DEFAULT 5,
+  `event_type` VARCHAR(100) NULL,
+  `review_text` TEXT NOT NULL,
+  `review_date` DATE NULL,
+  `source` VARCHAR(30) NOT NULL DEFAULT 'google',
+  `avatar_url` VARCHAR(255) NULL,
+  `is_verified` TINYINT(1) NOT NULL DEFAULT 1,
+  `is_published` TINYINT(1) NOT NULL DEFAULT 1,
+  `display_order` INT NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_reviews_published` (`is_published`, `display_order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `reviews` (`id`, `customer_name`, `rating`, `event_type`, `review_text`, `review_date`, `source`, `avatar_url`, `is_verified`, `is_published`, `display_order`, `created_at`, `updated_at`) VALUES
+(1, 'Karthik & Divya', 5, 'Grand Wedding Stage & Floral Arch', 'Manobalan master and the Akash Events team transformed our wedding hall in Hosur into an absolute fairytale! The cascading fresh Dutch rose arch and royal sofa setup looked breathtaking in our photos. Punctual, polite, and master craftsmanship.', '2026-10-18', 'google', NULL, 1, 1, 1, '2026-11-18 09:51:47', '2026-11-18 09:51:47'),
+(2, 'Suresh Kumar G.', 5, 'Traditional Seemantham & Half Saree', 'We booked Akash Event Management for my daughter’s Seemantham ceremony. The traditional jasmine strings, lotus floral arrangements, and brass deepam pedestals brought pure temple sanctity. Elders in our family praised the decor non-stop!', '2026-09-24', 'google', NULL, 1, 1, 2, '2026-11-18 09:51:47', '2026-11-18 09:51:47'),
+(3, 'Priya Venkatesh', 5, '1st Birthday Celebration & Theme Arch', 'Sensational balloon arch and illuminated marquee numbers for my son’s 1st birthday! The team executed the exact design shown in the concept preview. Super clean setup, no mess, and very reasonable pricing in Hosur.', '2026-09-02', 'google', NULL, 1, 1, 3, '2026-11-18 09:51:47', '2026-11-18 09:51:47'),
+(4, 'Dr. Rajesh & Meena', 5, 'Reception Stage at Bhavani Palace', 'Bespoke geometric arches with warm crystal chandelier lighting. The color palette complemented our reception attire flawlessly. Akash Events handles everything with calm professionalism. 10/10 recommendation!', '2026-08-15', 'google', NULL, 1, 1, 4, '2026-11-18 09:51:47', '2026-11-18 09:51:47'),
+(5, 'Anand Natarajan', 5, 'Naming Ceremony & Murugan Theme', 'Divine Murugan backdrop with fresh floral cradle setup. Every small ritual detail was taken care of. P. Manobalan gave personal attention from start to finish. Truly the best event decorator in Hosur.', '2026-07-28', 'google', NULL, 1, 1, 5, '2026-11-18 09:51:47', '2026-11-18 09:51:47'),
+(6, 'Senthil Nathan', 5, 'Building Facade Lighting & Tent House', 'Exterior fairy-light draping for our family home and German pagoda shamiana for the dining area. Flawless electrical safety, elegant buffet lines, and polite crew. Highly dependable team for big events.', '2026-07-10', 'google', NULL, 1, 1, 6, '2026-11-18 09:51:48', '2026-11-18 09:51:48');
+
 SET FOREIGN_KEY_CHECKS=1;
